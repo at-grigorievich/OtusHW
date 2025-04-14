@@ -23,8 +23,8 @@ namespace ATG.Items
     public abstract class HeroEffectComponent : IItemComponent
     {
         public abstract IItemComponent Clone();
-        public abstract void AddEffect(Hero hero);
-        public abstract void RemoveEffect(Hero hero);
+        public abstract void AddEffect(IHero hero);
+        public abstract void RemoveEffect(IHero hero);
     }
     
     [Serializable]
@@ -40,14 +40,14 @@ namespace ATG.Items
             };
         }
 
-        public override void AddEffect(Hero hero)
+        public override void AddEffect(IHero hero)
         {
-            hero.damage += DamageEffect;
+            hero.Damage += DamageEffect;
         }
 
-        public override void RemoveEffect(Hero hero)
+        public override void RemoveEffect(IHero hero)
         {
-            hero.damage -= DamageEffect;
+            hero.Damage -= DamageEffect;
         }
     }
     
@@ -64,14 +64,14 @@ namespace ATG.Items
             };
         }
 
-        public override void AddEffect(Hero hero)
+        public override void AddEffect(IHero hero)
         {
-            hero.hitPoints += HitPointsEffect;
+            hero.HitPoints += HitPointsEffect;
         }
 
-        public override void RemoveEffect(Hero hero)
+        public override void RemoveEffect(IHero hero)
         {
-            hero.hitPoints -= HitPointsEffect;
+            hero.HitPoints -= HitPointsEffect;
         }
     }
     
@@ -88,14 +88,14 @@ namespace ATG.Items
             };
         }
 
-        public override void AddEffect(Hero hero)
+        public override void AddEffect(IHero hero)
         {
-            hero.speed += SpeedEffect;
+            hero.Speed += SpeedEffect;
         }
 
-        public override void RemoveEffect(Hero hero)
+        public override void RemoveEffect(IHero hero)
         {
-            hero.speed -= SpeedEffect;
+            hero.Speed -= SpeedEffect;
         }
     }
 

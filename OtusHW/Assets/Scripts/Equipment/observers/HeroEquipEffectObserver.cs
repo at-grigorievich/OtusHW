@@ -6,9 +6,9 @@ namespace ATG.Items.Equipment
     public sealed class HeroEquipEffectObserver: IEquipmentObserver, IDisposable
     {
         private readonly Equipment _equipment;
-        private readonly Hero _hero;
+        private readonly IHero _hero;
 
-        public HeroEquipEffectObserver(Equipment equipment, Hero hero)
+        public HeroEquipEffectObserver(Equipment equipment, IHero hero)
         {
             _equipment = equipment;
             _hero = hero;

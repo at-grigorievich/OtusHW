@@ -1,8 +1,22 @@
 ﻿using UnityEngine;
 
-public class Hero : MonoBehaviour
+public interface IHero
 {
-    public float speed;
-    public int hitPoints;
-    public int damage;
+    float Speed { get; set; }
+    float HitPoints { get; set; }
+    float Damage { get; set; }
+}
+
+public sealed class HeroData: IHero
+{
+    public float Speed { get; set; }
+    public float HitPoints { get; set; }
+    public float Damage { get; set; }
+}
+
+public class Hero : MonoBehaviour, IHero
+{
+    public float Speed { get; set; }
+    public float HitPoints { get; set; }
+    public float Damage { get; set; }
 }

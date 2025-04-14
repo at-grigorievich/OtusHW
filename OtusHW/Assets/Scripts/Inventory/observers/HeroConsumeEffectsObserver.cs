@@ -6,9 +6,9 @@ namespace ATG.Items.Inventory
     public class HeroConsumeEffectsObserver: IDisposable
     {
         private readonly Inventory _inventory;
-        private readonly Hero _hero;
+        private readonly IHero _hero;
         
-        public HeroConsumeEffectsObserver(Inventory inventory, Hero hero)
+        public HeroConsumeEffectsObserver(Inventory inventory, IHero hero)
         {
             _inventory = inventory;
             _hero = hero;

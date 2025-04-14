@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using UnityEngine;
 
 namespace ATG.Items.Inventory
 {
@@ -6,7 +8,7 @@ namespace ATG.Items.Inventory
     {
         public static bool HasItem(Inventory inventory, Item item, bool findByRef = false)
         {
-            return findByRef
+            return findByRef == false
                 ? inventory.Items.Any(i => i.Id == item.Id)
                 : inventory.Items.Contains(item);
         }
@@ -23,7 +25,7 @@ namespace ATG.Items.Inventory
         {
             for (int i = 0; i < count; i++)
             {
-                AddItem(inventory, item);
+                AddItem(inventory, item.Clone());
             }
         }
 
@@ -63,7 +65,7 @@ namespace ATG.Items.Inventory
         {
             for (int i = 0; i < count; i++)
             {
-                RemoveItem(inventory, item);
+                RemoveItem(inventory, item.Clone());
             }
         }
 
@@ -91,10 +93,45 @@ namespace ATG.Items.Inventory
             }
         }
 
+        public static int GetUsedCellsForItem(Inventory inventory, Item item)
+        {
+            if(HasItem(inventory, item) == false) return 0;
+            return inventory.Items.Count(i => i.Id == item.Id);
+        }
 
+        public static int GetTotalCountForItem(Inventory inventory, Item item)
+        {
+            if (HasItem(inventory, item) == false) return 0;
+            if (item.CanStack() == false) return GetUsedCellsForItem(inventory, item);
+
+            int total = 0;
+
+            foreach (var i in inventory.Items)
+            {
+                if(i.Id != item.Id) continue;
+                if(i.TryGetComponent(out StackableItemComponent component) == false) continue;
+                total += component.Count;
+            }
+
+            return total;
+        }
+        
         private static bool TryAddStackItem(Inventory inventory, Item item)
         {
-            if (item.CanStack() == true)
+            bool canStack = item.CanStack() == true;
+            bool hasComponent = item.TryGetComponent(out StackableItemComponent _) == true;
+
+            if (canStack == true && hasComponent == false)
+            {
+                throw new Exception($"Item {item.Id} has stack flag, but no has StackableItemComponent");
+            }
+            
+            if (canStack == false && hasComponent == true)
+            {
+                throw new Exception($"Item {item.Id} no has stack flag, but has StackableItemComponent");
+            }
+            
+            if (canStack == true)
             {
                 foreach (var inventoryItem in inventory.Items)
                 {

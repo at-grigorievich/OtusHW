@@ -23,6 +23,16 @@ namespace ATG.Items
             Id = id;
         }
         
+        public Item(string id, params IItemComponent[] components): this(id)
+        {
+            Components = components;
+        }
+
+        public Item(string id, ItemFlags flags, params IItemComponent[] components) : this(id, components)
+        {
+            Flags = flags;
+        }
+        
         public Item Clone()
         {
             IItemComponent[] copiedComponents = Array.Empty<IItemComponent>();

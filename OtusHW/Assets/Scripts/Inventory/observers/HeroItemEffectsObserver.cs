@@ -6,9 +6,9 @@ namespace ATG.Items.Inventory
     public class HeroItemsEffectsController : IInventoryObserver, IDisposable
     {
         private readonly Inventory _inventory;
-        private readonly Hero _hero;
+        private readonly IHero _hero;
 
-        public HeroItemsEffectsController(Inventory inventory, Hero hero)
+        public HeroItemsEffectsController(Inventory inventory, IHero hero)
         {
             _inventory = inventory;
             _hero = hero;

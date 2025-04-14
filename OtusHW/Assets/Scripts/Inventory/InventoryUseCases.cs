@@ -4,6 +4,13 @@ namespace ATG.Items.Inventory
 {
     public static class InventoryUseCases
     {
+        public static bool HasItem(Inventory inventory, Item item, bool findByRef = false)
+        {
+            return findByRef
+                ? inventory.Items.Any(i => i.Id == item.Id)
+                : inventory.Items.Contains(item);
+        }
+        
         public static void AddItem(Inventory inventory, Item item)
         {
             if (TryAddStackItem(inventory, item) == true) return;

@@ -20,21 +20,16 @@ MonoBehaviour:
       Icon: {fileID: 21300000, guid: d320920d3cd431a40864f357794e76f3, type: 3}
     Flags: 4
     Components:
-    - rid: 3887614963590103325
-    - rid: 3887614963590103326
-    - rid: 3887614963590103327
+    - rid: 3887615055237480456
+    - rid: 3887615055237480457
   references:
     version: 2
     RefIds:
-    - rid: 3887614963590103325
-      type: {class: HeroEquipmentComponent, ns: ATG.Items, asm: Assembly-CSharp}
+    - rid: 3887615055237480456
+      type: {class: HeroEquipmentComponent, ns: ATG.Items, asm: OtusHW}
       data:
         Tag: 4
-    - rid: 3887614963590103326
-      type: {class: HeroHitPointsEffectComponent, ns: ATG.Items, asm: Assembly-CSharp}
+    - rid: 3887615055237480457
+      type: {class: HeroHitPointsEffectComponent, ns: ATG.Items, asm: OtusHW}
       data:
-        HitPointsEffect: 25
-    - rid: 3887614963590103327
-      type: {class: HeroSpeedEffectComponent, ns: ATG.Items, asm: Assembly-CSharp}
-      data:
-        SpeedEffect: -10
+        HitPointsEffect: 2

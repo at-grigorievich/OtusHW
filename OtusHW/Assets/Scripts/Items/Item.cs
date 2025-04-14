@@ -10,20 +10,32 @@ namespace ATG.Items
     {
         public string Id;
 
-        public ItemMetaData MetaData;
+        public ItemMetaData MetaData = new();
         public ItemFlags Flags;
         
         [SerializeReference]
         public IItemComponent[] Components;
+
+        public Item() { }
+
+        public Item(string id)
+        {
+            Id = id;
+        }
         
         public Item Clone()
         {
-            var copiedComponents = new IItemComponent[Components.Length];
+            IItemComponent[] copiedComponents = Array.Empty<IItemComponent>();
             
-            for (var i = 0; i < copiedComponents.Length; i++)
+            if (Components != null)
             {
-                IItemComponent component = Components[i];
-                copiedComponents[i] = component.Clone();
+                copiedComponents = new IItemComponent[Components.Length];
+            
+                for (var i = 0; i < copiedComponents.Length; i++)
+                {
+                    IItemComponent component = Components[i];
+                    copiedComponents[i] = component.Clone();
+                }
             }
             
             return new Item()
@@ -71,8 +83,8 @@ namespace ATG.Items
     [Serializable]
     public class ItemMetaData
     {
-        public string Name;
-        public string Description;
+        public string Name = string.Empty;
+        public string Description = string.Empty;
         public Sprite Icon;
 
         public ItemMetaData Clone()

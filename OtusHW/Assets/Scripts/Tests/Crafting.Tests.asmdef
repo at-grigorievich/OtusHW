@@ -1,7 +1,7 @@
 {
     "name": "Crafting.Tests",
     "rootNamespace": "",
-    "references": [],
+    "references": ["OtusHW"],
     "includePlatforms": [
         "Editor"
     ],

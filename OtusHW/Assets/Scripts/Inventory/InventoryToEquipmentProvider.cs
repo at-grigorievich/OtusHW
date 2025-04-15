@@ -1,8 +1,42 @@
 ﻿using System;
 using ATG.Items.Equipment;
+using UnityEngine;
 
 namespace ATG.Items.Inventory
 {
+    public static class InventoryToEquipmentUseCases
+    {
+        public static void EquipItem(Inventory inventory, Equipment.Equipment equipment, Item item, 
+            bool equipByRef = true)
+        {
+            var equipped = InventoryUseCases.RemoveItem(inventory, item, removeByRef: equipByRef);
+
+            if (equipped == null)
+                throw new NullReferenceException($"Can't remove item with id {item.Id}");
+
+            if (item.TryGetComponent(out HeroEquipmentComponent equipmentComponent) == true)
+            {
+                if (EquipmentUseCases.TryGetItemByTag(equipment, equipmentComponent.Tag, out Item equipmentItem) ==
+                    true)
+                {
+                    UnequipItem(inventory, equipment, equipmentItem);
+                }
+            }
+            
+            EquipmentUseCases.TakeOnItem(equipment, equipped);
+        }
+
+        public static void UnequipItem(Inventory inventory, Equipment.Equipment equipment, Item item)
+        {
+            Item unequippedItem = EquipmentUseCases.TakeOffItem(equipment, item);
+            
+            if (unequippedItem == null)
+                throw new NullReferenceException($"Can't take off item with id {item.Id}");
+            
+            InventoryUseCases.AddItem(inventory, unequippedItem);
+        }
+    }
+    
     public class InventoryToEquipmentProvider: IDisposable
     {
         private readonly Inventory _inventory;
@@ -20,37 +54,20 @@ namespace ATG.Items.Inventory
             _inventoryView = inventoryView;
             _equipmentView = equipmentView;
             
-            _equipment.OnItemTakeOff += OnItemTakeOff;
-            
             _inventoryView.OnEquipClicked += OnEquipClicked;
             _equipmentView.OnItemTakeOffClicked += OnTakeOffClickedClicked;
         }
 
-        private void OnEquipClicked(Item obj)
-        {
-            var equipped = InventoryUseCases.RemoveItem(_inventory, obj, removeByRef: true);
-            
-            if(equipped == null) return;
-            
-            EquipmentUseCases.TakeOnItem(_equipment, equipped);
-        }
+        private void OnEquipClicked(Item obj) => 
+            InventoryToEquipmentUseCases.EquipItem(_inventory, _equipment, obj);
         
-        private void OnTakeOffClickedClicked(Item obj)
-        {
-            EquipmentUseCases.TakeOffItem(_equipment, obj);
-        }
-
-        private void OnItemTakeOff(Item obj)
-        {
-            InventoryUseCases.AddItem(_inventory, obj);
-        }
+        private void OnTakeOffClickedClicked(Item obj) => 
+            InventoryToEquipmentUseCases.UnequipItem(_inventory, _equipment, obj);
         
         public void Dispose()
         {
             _inventoryView.OnEquipClicked -= OnEquipClicked;
             _equipmentView.OnItemTakeOffClicked -= OnTakeOffClickedClicked;
-            
-            _equipment.OnItemTakeOff -= OnItemTakeOff;
         }
     }
 }

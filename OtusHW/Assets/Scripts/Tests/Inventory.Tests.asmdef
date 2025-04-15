@@ -1,7 +1,9 @@
 {
-    "name": "Crafting.Tests",
+    "name": "Inventory.Tests",
     "rootNamespace": "",
-    "references": ["OtusHW"],
+    "references": [
+        "OtusHW"
+    ],
     "includePlatforms": [
         "Editor"
     ],

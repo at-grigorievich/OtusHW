@@ -5,7 +5,7 @@ using NUnit.Framework;
 using UnityEngine;
 
 [TestFixture]
-public class CraftingTests
+public class InventoryTests
 {
     #region Добавление стакиваемых/нестакиваемых обьектов
     //Когда в инвентарь добавляются два нестакиваемых одинаковых предмета, они отображаются как два нестакиваемых предмета
@@ -26,7 +26,7 @@ public class CraftingTests
         Assert.IsTrue(totalCount == count);
     }
     
-    //Когда в инвентарь добавляются n стакиваемых одинаковых предмета, они не перевывашают один лимит
+    //Когда в инвентарь добавляются n стакиваемых одинаковых предметов, они не превышают одного лимита
     [Test]
     public void WhenAddStackableItem_AndNoLimitExceed_PlaceOneCellInInventory()
     {
@@ -52,7 +52,7 @@ public class CraftingTests
         Assert.IsTrue(totalCount == 4);
     }
     
-    //Когда в инвентарь добавляются n стакиваемых одинаковых предмета, они перевывашают один лимит
+    //Когда в инвентарь добавляются n стакиваемых одинаковых предметов, они превышают более одного лимита
     [Test]
     public void WhenAdd14StackableItem_AndLimitExceed_PlaceThreeCellInInventory()
     {
@@ -77,7 +77,7 @@ public class CraftingTests
         Assert.IsTrue(totalItems == 14);
     }
     
-    //Когда в инвентарь добавляются n стакиваемых одинаковых предмета, на них есть компонент StackableItemComponent, 
+    //Когда в инвентарь добавляются n стакиваемых одинаковых предметов, на них есть компонент StackableItemComponent, 
     // но нет флага "Stackable"
     [Test]
     public void WhenAddStackableItem_AndAddStackableItemComponentWithNoAddingStackableFlag_ThrowException()
@@ -99,7 +99,7 @@ public class CraftingTests
         Assert.AreEqual($"Item {ham.Id} no has stack flag, but has StackableItemComponent", exception.Message);
     }
     
-    //Когда в инвентарь добавляются n стакиваемых одинаковых предмета, на них нет компонента StackableItemComponent, 
+    //Когда в инвентарь добавляются n стакиваемых одинаковых предметов, на них нет компонента StackableItemComponent, 
     // но есть флаг "Stackable"
     [Test]
     public void WhenAddStackableItem_AndAddStackableFlagWithNoAddingStackableItemComponent_ThrowException()
@@ -206,7 +206,6 @@ public class CraftingTests
     }
     
     #endregion
-
     #region Получение/удаление эффектов для героя
     // Когда добавили предмет в инвентарь с эффектами, герой получает баф статам
     [Test]
@@ -243,6 +242,7 @@ public class CraftingTests
         Assert.IsTrue(Mathf.Approximately(hero.Damage, 20f));
         Assert.IsTrue(Mathf.Approximately(hero.Speed, 20f));
         Assert.IsTrue(Mathf.Approximately(hero.HitPoints, 20f));
+        Assert.IsTrue(InventoryUseCases.HasItem(inventory, food));
     }
     
     // Когда добавили предметы в инвентарь с эффектами, герой получает сумму бафов к статам
@@ -281,6 +281,99 @@ public class CraftingTests
         Assert.IsTrue(Mathf.Approximately(hero.Damage, 20f));
         Assert.IsTrue(Mathf.Approximately(hero.Speed, 30f));
         Assert.IsTrue(Mathf.Approximately(hero.HitPoints, 30f));
+        Assert.IsTrue(InventoryUseCases.HasItem(inventory, food));
+        Assert.IsTrue(InventoryUseCases.HasItem(inventory, fish));
+    }
+    
+    // Когда добавили предметы с эффектами, а затем удаляются, герой не должен получить эффекты
+    [Test]
+    public void WhenRemoveEffectableItem_ThenHeroGet0Effect()
+    {
+        IHero hero = new HeroData()
+        {
+            Damage = 10f,
+            Speed = 10f,
+            HitPoints = 10f
+        };
+        Inventory inventory = new();
+        IInventoryObserver effectsController = new HeroItemsEffectsController(inventory, hero);
+
+        HeroSpeedEffectComponent speedEffectComponent = new()
+        {
+            SpeedEffect = 10
+        };
+
+        HeroDamageEffectComponent damageEffectComponent = new()
+        {
+            DamageEffect = 10
+        };
+
+        HeroHitPointsEffectComponent hitPointsEffectComponent = new()
+        {
+            HitPointsEffect = 10
+        };
+        
+        Item food = new Item("food", ItemFlags.Effectable, speedEffectComponent, damageEffectComponent, hitPointsEffectComponent);
+        Item fish = new Item("fish", ItemFlags.Effectable, speedEffectComponent, hitPointsEffectComponent);
+        InventoryUseCases.AddItem(inventory, food);
+        InventoryUseCases.AddItem(inventory, fish);
+
+        InventoryUseCases.RemoveItem(inventory, food);
+        InventoryUseCases.RemoveItem(inventory, fish);
+        
+        Assert.IsTrue(Mathf.Approximately(hero.Damage, 10f));
+        Assert.IsTrue(Mathf.Approximately(hero.Speed, 10f));
+        Assert.IsTrue(Mathf.Approximately(hero.HitPoints, 10f));
+        Assert.IsFalse(InventoryUseCases.HasItem(inventory, food));
+        Assert.IsFalse(InventoryUseCases.HasItem(inventory, fish));
+    }
+    #endregion
+    #region Получение consumable эффектов для героя
+    // Когда добавили предмет в инвентарь с эффектами, герой получает баф статам
+    [Test]
+    public void WhenUseConsumableItem_ThenHeroGetEffect()
+    {
+        IHero hero = new HeroData()
+        {
+            Damage = 10f,
+            Speed = 10f,
+            HitPoints = 10f
+        };
+        Inventory inventory = new();
+        HeroConsumeEffectsObserver effectsController = new (inventory, hero);
+
+        HeroSpeedEffectComponent speedEffectComponent = new()
+        {
+            SpeedEffect = 10
+        };
+
+        HeroDamageEffectComponent damageEffectComponent = new()
+        {
+            DamageEffect = 10
+        };
+
+        HeroHitPointsEffectComponent hitPointsEffectComponent = new()
+        {
+            HitPointsEffect = 10
+        };
+        
+        Item food = new Item("food", ItemFlags.Consumable, speedEffectComponent, damageEffectComponent, hitPointsEffectComponent);
+        
+        InventoryUseCases.AddItem(inventory, food);
+
+        float damageWhenOnlyAddItem = hero.Damage;
+        float speedWhenOnlyAddItem = hero.Speed;
+        float hitPointsWhenOnlyAddItem = hero.HitPoints;
+        
+        InventoryUseCases.ConsumeItem(inventory, food);
+        
+        Assert.IsTrue(Mathf.Approximately(hero.Damage, 20f));
+        Assert.IsTrue(Mathf.Approximately(hero.Speed, 20f));
+        Assert.IsTrue(Mathf.Approximately(hero.HitPoints, 20f));
+        Assert.IsTrue(Mathf.Approximately(damageWhenOnlyAddItem, 10f));
+        Assert.IsTrue(Mathf.Approximately(speedWhenOnlyAddItem, 10f));
+        Assert.IsTrue(Mathf.Approximately(hitPointsWhenOnlyAddItem, 10f));
+        Assert.IsFalse(InventoryUseCases.HasItem(inventory, food));
     }
     #endregion
 }

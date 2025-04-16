@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: wooden_chest
   m_EditorClassIdentifier: 
   tag: 1
+  meta:
+    name: "\u0414\u0435\u0440\u0435\u0432\u044F\u043D\u043D\u044B\u0439 \u0441\u0443\u043D\u0434\u0443\u043A"
+    icon: {fileID: 21300000, guid: 9dbdd891e7cba1c4b90ab6199772330c, type: 3}
   cooldown: {x: 0, y: 1, z: 0}

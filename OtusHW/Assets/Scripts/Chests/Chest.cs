@@ -13,6 +13,8 @@ namespace ATG.RealtimeChests
     public class Chest
     {
         public readonly ChestType Tag;
+        public readonly ChestMetaData Meta;
+        
         public CooldownTimer Timer { get; private set; }
         
         public event Action<CooldownTimerInfo> OnUnlockedTimerInfoChanged
@@ -21,10 +23,11 @@ namespace ATG.RealtimeChests
             remove => Timer.OnTimerInfoChanged -= value;
         }
 
-        public Chest(ChestType tag, CooldownTimer timer)
+        public Chest(ChestType tag, ChestMetaData meta, CooldownTimer timer)
         {
             Tag = tag;
             Timer = timer;
+            Meta = meta;
         }
     }
 }

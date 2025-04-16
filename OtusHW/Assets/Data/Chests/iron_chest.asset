@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: iron_chest
   m_EditorClassIdentifier: 
   tag: 2
+  meta:
+    name: "\u0416\u0435\u043B\u0435\u0437\u043D\u044B\u0439 \u0441\u0443\u043D\u0434\u0443\u043A"
+    icon: {fileID: 21300000, guid: ccd276ce212dc5343b22d2d0124e8434, type: 3}
   cooldown: {x: 0, y: 3, z: 0}

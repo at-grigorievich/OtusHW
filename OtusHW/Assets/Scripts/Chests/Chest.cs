@@ -30,6 +30,11 @@ namespace ATG.RealtimeChests
             Meta = meta;
         }
 
+        public void ResetTimer()
+        {
+            Timer.Reset();
+        }
+        
         public void ActivateTimer()
         {
             Timer.Start();

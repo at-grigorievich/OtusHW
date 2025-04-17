@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace ATG.DateTimers
 {
@@ -19,13 +20,14 @@ namespace ATG.DateTimers
     public class CooldownTimer: IDisposable
     {
         private readonly TimeSpan _cooldown;
-        private DateTime _startedTime;
-        private DateTime _finishedTime;
-
+        
         private CancellationTokenSource _cts;
         
-        public bool IsFinished => _finishedTime <= DateTime.Now;
+        public DateTime StartedTime { get; private set; }
+        public DateTime FinishedTime { get; private set; }
 
+        public bool IsFinished { get; private set; }
+    
         public event Action<CooldownTimerInfo> OnTimerInfoChanged;
 
         public CooldownTimer(TimeSpan cooldown)
@@ -35,19 +37,32 @@ namespace ATG.DateTimers
 
         public CooldownTimer(TimeSpan cooldown, DateTime startedTime, DateTime finishedTime): this(cooldown)
         {
-            _startedTime = startedTime;
-            _finishedTime = finishedTime;
+            StartedTime = startedTime;
+            FinishedTime = finishedTime;
+            
+            IsFinished = DateTime.Now >= finishedTime;
         }
         
         public void Start()
         {
             Dispose();
+
+            if (IsFinished == true)
+            {
+                Debug.LogWarning("timer is already finished, need to call Reset()");
+                return;
+            }
             
-            _startedTime = DateTime.Now;
-            _finishedTime = _startedTime + _cooldown;
-            
+            StartedTime = DateTime.Now;
+            FinishedTime = StartedTime + _cooldown;   
+
             _cts = new CancellationTokenSource();
             UpdateTimerInfoAsync(_cts.Token).Forget();
+        }
+
+        public void Reset()
+        {
+            IsFinished = false;
         }
         
         public void Dispose()
@@ -61,13 +76,15 @@ namespace ATG.DateTimers
         {
             while (true)
             {
-                var timeLeft = _finishedTime - DateTime.Now;
+                var timeLeft = FinishedTime - DateTime.Now;
 
                 CooldownTimerInfo timerInfo = new (timeLeft, timeLeft.TotalSeconds <= 0f);
                 OnTimerInfoChanged?.Invoke(timerInfo);
 
                 if (timerInfo.IsFinished)
                 {
+                    IsFinished = true;
+                    
                     Dispose();
                     return;
                 }

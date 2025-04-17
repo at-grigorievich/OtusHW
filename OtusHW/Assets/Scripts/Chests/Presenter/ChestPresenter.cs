@@ -1,6 +1,5 @@
 ﻿using System;
 using UI;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace ATG.RealtimeChests
@@ -10,9 +9,9 @@ namespace ATG.RealtimeChests
         private readonly ChestView _view;
         private readonly Chest _model;
 
-        public ChestPresenter(ChestConfig chestConfig, ChestView view)
+        public ChestPresenter(Chest chest, ChestView view)
         {
-            _model = chestConfig.Create();
+            _model = chest;
             _view = view;
         }
 
@@ -36,6 +35,8 @@ namespace ATG.RealtimeChests
         private void OnChestOpened()
         {
             _view.SelectLockedState();
+            
+            _model.ResetTimer();
             _model.ActivateTimer();
         }
     }

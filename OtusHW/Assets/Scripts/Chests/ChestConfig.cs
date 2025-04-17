@@ -12,7 +12,9 @@ namespace ATG.RealtimeChests
         [Header("Hours:Minutes:Seconds")]
         [SerializeField] private Vector3Int cooldown;
         
-        public string Tag => tag.ToString();
+        public ChestType Tag => tag;
+        public ChestMetaDataCreator MetaCreator => meta;
+        public Vector3Int Cooldown => cooldown;
         
         public Chest Create() =>
             new (tag, meta.Create(), new CooldownTimer(cooldown.ToTimeSpan()));

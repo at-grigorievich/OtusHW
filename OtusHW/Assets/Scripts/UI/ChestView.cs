@@ -30,11 +30,6 @@ namespace UI
         
         public event Action OnChestOpenClicked;
 
-        private void Awake()
-        {
-            SelectLockedState();
-        }
-
         private void OnEnable() =>
             openChestBtn.onClick.AddListener(() => OnChestOpenClicked?.Invoke());
         
@@ -46,6 +41,19 @@ namespace UI
             chestNameOutput.text = meta.Name;
             chestResourceIcon.sprite = meta.Sprite;
         }
+
+        public void SetupInitialState(bool isFinished)
+        {
+            if (isFinished == true)
+            {
+               SelectAvailableState();
+            }
+            else
+            {
+                SelectLockedState();
+            }
+        }
+        
         public void UpdateTimer(CooldownTimerInfo timerInfo)
         {
             if (timerInfo.IsFinished == true)

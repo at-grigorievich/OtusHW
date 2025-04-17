@@ -18,4 +18,10 @@ public sealed class SceneScope : LifetimeScope
 
         builder.RegisterEntryPoint<ChestsEntryPoint>();
     }
+
+    [ContextMenu("Clear prefs")]
+    public void ClearPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 }

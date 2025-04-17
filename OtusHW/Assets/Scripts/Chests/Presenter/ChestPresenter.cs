@@ -18,6 +18,7 @@ namespace ATG.RealtimeChests
         public void Start()
         {
             _view.ShowMetaData(_model.Meta);
+            _view.SetupInitialState(_model.ReadyToOpen);
             _model.ActivateTimer();
             
             _model.OnUnlockedTimerInfoChanged += _view.UpdateTimer;

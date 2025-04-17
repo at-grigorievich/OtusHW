@@ -14,8 +14,21 @@ namespace ATG.RealtimeChests
     {
         public readonly ChestType Tag;
         public readonly ChestMetaData Meta;
-        
+
+        public bool ReadyToOpen => Timer.IsFinished == true;
         public CooldownTimer Timer { get; private set; }
+
+        public event Action OnChestTimerStarted
+        {
+            add => Timer.OnTimerStarted += value;
+            remove => Timer.OnTimerStarted -= value;
+        }
+        
+        public event Action OnChestTimerEnded
+        {
+            add => Timer.OnTimerFinished += value;
+            remove => Timer.OnTimerFinished -= value;
+        }
         
         public event Action<CooldownTimerInfo> OnUnlockedTimerInfoChanged
         {
@@ -34,12 +47,11 @@ namespace ATG.RealtimeChests
         {
             Timer.Reset();
         }
-        
         public void ActivateTimer()
         {
             Timer.Start();
         }
-
+        
         public void Dispose()
         {
             Timer.Dispose();

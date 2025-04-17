@@ -10,7 +10,7 @@ namespace ATG.RealtimeChests
         Gold = 3
     }
     
-    public class Chest
+    public class Chest: IDisposable
     {
         public readonly ChestType Tag;
         public readonly ChestMetaData Meta;
@@ -28,6 +28,16 @@ namespace ATG.RealtimeChests
             Tag = tag;
             Timer = timer;
             Meta = meta;
+        }
+
+        public void ActivateTimer()
+        {
+            Timer.Start();
+        }
+
+        public void Dispose()
+        {
+            Timer.Dispose();
         }
     }
 }

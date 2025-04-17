@@ -23,7 +23,7 @@ namespace ATG.RealtimeChests
         }
     }
     
-    public sealed class ChestPresenterPool: IStartable
+    public sealed class ChestPresenterPool: IStartable, IDisposable
     {
         private readonly Dictionary<string, ChestPresenter> _pool;
 
@@ -47,6 +47,14 @@ namespace ATG.RealtimeChests
             foreach (var chestPresenter in _pool.Values)
             {
                 chestPresenter.Start();
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (var chestPresenter in _pool.Values)
+            {
+                chestPresenter.Dispose();
             }
         }
     }

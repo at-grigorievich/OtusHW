@@ -15,7 +15,7 @@ namespace ATG.RealtimeChests
         public string Tag => tag.ToString();
         
         public Chest Create() =>
-            new (tag, meta.Create(), new CooldownTimer(Vector3IntToTimeSpan(cooldown)));
+            new (tag, meta.Create(), new CooldownTimer(cooldown.ToTimeSpan()));
         
         private static TimeSpan Vector3IntToTimeSpan(Vector3Int cooldown) =>
             new TimeSpan(cooldown.x, cooldown.y, cooldown.z);

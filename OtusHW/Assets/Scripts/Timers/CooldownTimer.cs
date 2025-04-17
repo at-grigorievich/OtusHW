@@ -65,6 +65,12 @@ namespace ATG.DateTimers
 
                 CooldownTimerInfo timerInfo = new (timeLeft, timeLeft.TotalSeconds <= 0f);
                 OnTimerInfoChanged?.Invoke(timerInfo);
+
+                if (timerInfo.IsFinished)
+                {
+                    Dispose();
+                    return;
+                }
                 
                 await UniTask.Delay(1000, cancellationToken: token);
             }

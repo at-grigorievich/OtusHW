@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tag: 3
   meta:
-    name: "\u0417\u043E\u043B\u043E\u0442\u043E\u0439 \u0441\u0443\u043D\u0434\u0443\u043A"
+    name: Gold chest
     icon: {fileID: 21300000, guid: c57774fac52a0e64f9dec003388c1dcd, type: 3}
   cooldown: {x: 0, y: 5, z: 0}

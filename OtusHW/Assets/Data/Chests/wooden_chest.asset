@@ -16,4 +16,5 @@ MonoBehaviour:
   meta:
     name: Wood chest
     icon: {fileID: 21300000, guid: 9dbdd891e7cba1c4b90ab6199772330c, type: 3}
+  reward: {fileID: 11400000, guid: dddcca9fbe9d40542a04a88dca88cef0, type: 2}
   cooldown: {x: 0, y: 1, z: 0}

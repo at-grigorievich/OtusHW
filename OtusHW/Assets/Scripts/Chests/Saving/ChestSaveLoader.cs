@@ -46,7 +46,7 @@ namespace ATG.RealtimeChests.Saving
                         savedData.StartedTime,
                         savedData.FinishedTime);
                     
-                    chest = new Chest(savedData.Tag, config.MetaCreator.Create(), timer);
+                    chest = new Chest(savedData.Tag, config.MetaCreator.Create(), config.Reward, timer);
                 }
                 else
                 {

@@ -16,4 +16,5 @@ MonoBehaviour:
   meta:
     name: Iron chest
     icon: {fileID: 21300000, guid: ccd276ce212dc5343b22d2d0124e8434, type: 3}
+  reward: {fileID: 11400000, guid: 65a46a4e7eb9d0441b8c61c5cf69e565, type: 2}
   cooldown: {x: 0, y: 3, z: 0}

@@ -16,4 +16,5 @@ MonoBehaviour:
   meta:
     name: Gold chest
     icon: {fileID: 21300000, guid: c57774fac52a0e64f9dec003388c1dcd, type: 3}
+  reward: {fileID: 11400000, guid: 318f8deef2ab1984ea94becd4cca4bcc, type: 2}
   cooldown: {x: 0, y: 0, z: 5}

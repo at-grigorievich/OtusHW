@@ -47,6 +47,8 @@ namespace ATG.RealtimeChests
         {
             _view.SelectLockedState();
             
+            _model.GetReward(_eventBus);
+            
             _model.ResetTimer();
             _model.ActivateTimer();
         }

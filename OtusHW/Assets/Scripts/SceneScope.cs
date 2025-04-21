@@ -13,12 +13,17 @@ public sealed class SceneScope : LifetimeScope
     protected override void Configure(IContainerBuilder builder)
     {
         builder.Register<EventBus>(Lifetime.Singleton);
+        
         builder.Register<SerializableRepository>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<ChestSaveLoader>(Lifetime.Singleton).As<ISaveLoader>();
+        builder.Register<HeroInventorySaveLoader>(Lifetime.Singleton).As<ISaveLoader>();
         builder.Register<ISaveService, SaveLoadersService>(Lifetime.Singleton);
+
+        builder.Register<HeroInventory>(Lifetime.Singleton).AsSelf();
         
         builder.Register<SaveGameStateHandler>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<LoadGameStateHandler>(Lifetime.Singleton).AsImplementedInterfaces();
+        builder.Register<GetResourcesRewardHandler>(Lifetime.Singleton).AsImplementedInterfaces();
         
         chestPoolCreator.Create(builder);
 

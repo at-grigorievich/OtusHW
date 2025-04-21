@@ -30,10 +30,10 @@ namespace ATG.RealtimeChests
             remove => Timer.OnTimerFinished -= value;
         }
         
-        public event Action<CooldownTimerInfo> OnUnlockedTimerInfoChanged
+        public event Action<CooldownTimerInfo> OnTimerChanged
         {
-            add => Timer.OnTimerInfoChanged += value;
-            remove => Timer.OnTimerInfoChanged -= value;
+            add => Timer.OnTimerChanged += value;
+            remove => Timer.OnTimerChanged -= value;
         }
 
         public Chest(ChestType tag, ChestMetaData meta, CooldownTimer timer)
@@ -47,6 +47,7 @@ namespace ATG.RealtimeChests
         {
             Timer.Reset();
         }
+        
         public void ActivateTimer()
         {
             Timer.Start();

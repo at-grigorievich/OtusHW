@@ -31,7 +31,7 @@ namespace ATG.DateTimers
         
         public event Action OnTimerStarted;
         public event Action OnTimerFinished;
-        public event Action<CooldownTimerInfo> OnTimerInfoChanged;
+        public event Action<CooldownTimerInfo> OnTimerChanged;
 
         public CooldownTimer(TimeSpan cooldown)
         {
@@ -90,7 +90,7 @@ namespace ATG.DateTimers
                 var timeLeft = FinishedTime - DateTime.Now;
 
                 CooldownTimerInfo timerInfo = new (timeLeft, timeLeft.TotalSeconds <= 0f);
-                OnTimerInfoChanged?.Invoke(timerInfo);
+                OnTimerChanged?.Invoke(timerInfo);
 
                 if (timerInfo.IsFinished)
                 {

@@ -1,59 +1,26 @@
 ﻿using System;
-using System.Threading;
 using ATG.RealtimeChests;
-using Cysharp.Threading.Tasks;
-using SaveSystem;
 using VContainer.Unity;
 
-public sealed class ChestsEntryPoint: IInitializable, IDisposable
+public sealed class ChestsEntryPoint: IStartable, IDisposable
 {
     private readonly ChestPresenterPool _chestsPool;
+    private readonly CycleGameStateSave _cycleGameStateSave;
     
-    private readonly ISaveService _saveService;
-    private readonly CancellationTokenSource _cts;
-    private readonly int _delayInSeconds;
-    
-    public ChestsEntryPoint(ISaveService saveService, ChestPresenterPool chestsPool)
+    public ChestsEntryPoint(ChestPresenterPool chestsPool, EventBus eventBus)
     {
-        _saveService = saveService;
-        _cts = new CancellationTokenSource();
-        _delayInSeconds = 10;
-        
         _chestsPool = chestsPool;
+        _cycleGameStateSave = new CycleGameStateSave(eventBus);
     }
     
-    public void Initialize()
+    public void Start()
     {
-        _saveService.Load();
-        SaveCycle().Forget();
-        
-        foreach (var chest in _chestsPool.Chests)
-        {
-            chest.OnChestTimerStarted += _saveService.Save;
-            chest.OnChestTimerEnded += _saveService.Save;
-        }
+        _cycleGameStateSave.Initialize();
+        _chestsPool.Init();
     }
 
     public void Dispose()
     {
-        _cts.Cancel();
-        _cts.Dispose();
-        
-        foreach (var chest in _chestsPool.Chests)
-        {
-            chest.OnChestTimerStarted -= _saveService.Save;
-            chest.OnChestTimerEnded -= _saveService.Save;
-        }
-        
-        _saveService.Save();
-    }
-
-    private async UniTask SaveCycle()
-    {
-        while (true)
-        {
-            await UniTask.Delay(_delayInSeconds * 1000);
-            _saveService.Save();
-        }
+        _cycleGameStateSave?.Dispose();
     }
 }

@@ -23,24 +23,29 @@ namespace ATG.RealtimeChests
         }
     }
 
-    public sealed class ChestPresenterPool : IStartable, IDisposable
+    public sealed class ChestPresenterPool : IDisposable
     {
+        private readonly EventBus _eventBus;
+        
         private readonly Dictionary<ChestType, ChestPresenterData> _data;
 
         private readonly HashSet<Chest> _chests;
         private readonly HashSet<ChestPresenter> _presenters;
-
+    
+        
         public IReadOnlyCollection<Chest> Chests => _chests;
         public IEnumerable<ChestConfig> Configs => _data.Values.Select(e => e.Config);
 
-        public ChestPresenterPool(IEnumerable<KeyValuePair<ChestType, ChestPresenterData>> dataByKeys)
+        public ChestPresenterPool(IEnumerable<KeyValuePair<ChestType, ChestPresenterData>> dataByKeys, EventBus eventBus)
         {
             _data = new Dictionary<ChestType, ChestPresenterData>(dataByKeys);
             _chests = new HashSet<Chest>();
             _presenters = new HashSet<ChestPresenter>();
+
+            _eventBus = eventBus;
         }
 
-        public void Start()
+        public void Init()
         {
             AddChestsFromConfigIfEmpty();
             InitializePresenters();
@@ -73,7 +78,7 @@ namespace ATG.RealtimeChests
         {
             foreach (var chest in _chests)
             {
-                var presenter = new ChestPresenter(chest, _data[chest.Tag].View);
+                var presenter = new ChestPresenter(chest, _data[chest.Tag].View, _eventBus);
 
                 presenter.Start();
 

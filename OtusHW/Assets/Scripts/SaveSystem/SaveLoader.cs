@@ -29,7 +29,6 @@ namespace SaveSystem
             if(_serializableRepository.TryGetData(DATA_KEY, out TData serializableSet) == true)
             {
                 SetupData(serializableSet);
-                Debug.Log("units deserialized");
             }
             else
             {

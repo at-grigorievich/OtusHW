@@ -1,3 +1,4 @@
 {
-  "name": "SaveSystem"
+  "name": "SaveSystem",
+  "references":[ "ATG.EventBus" ]
 }

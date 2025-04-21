@@ -1,5 +1,6 @@
 ﻿using ATG.RealtimeChests;
 using ATG.RealtimeChests.Saving;
+using ATG.Session;
 using Event_Bus.Handlers;
 using SaveSystem;
 using UnityEngine;
@@ -8,6 +9,7 @@ using VContainer.Unity;
 
 public sealed class SceneScope : LifetimeScope
 {
+    [SerializeField] private SessionServiceCreator sessionServiceCreator;
     [SerializeField] private ChestPresenterPoolCreator chestPoolCreator;
 
     protected override void Configure(IContainerBuilder builder)
@@ -26,6 +28,7 @@ public sealed class SceneScope : LifetimeScope
         builder.Register<GetResourcesRewardHandler>(Lifetime.Singleton).AsImplementedInterfaces();
         
         chestPoolCreator.Create(builder);
+        sessionServiceCreator.Create(builder);
 
         builder.RegisterEntryPoint<ChestsEntryPoint>();
     }

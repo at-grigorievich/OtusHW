@@ -11,6 +11,6 @@ public static class UsefulExtensions
         //Can add localization
         
         //return $"{timeSpan.Hours}h.:{timeSpan.Minutes}m.:{timeSpan.Seconds}s.";
-        return $"{timeSpan.Hours}ч.:{timeSpan.Minutes}м.:{timeSpan.Seconds}с.";
+        return $"{timeSpan.Hours}ч. {timeSpan.Minutes}м. {timeSpan.Seconds}с.";
     }
 }

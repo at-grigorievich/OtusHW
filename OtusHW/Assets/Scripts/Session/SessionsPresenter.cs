@@ -18,12 +18,26 @@ namespace ATG.Session
         public void Start()
         {
             _service.OnSessionUpdated += _sessionsView.UpdateCurrentSession;
+            _service.OnSessionsRecordsUpdated += ShowSessionRecords;
+            
             _sessionsView.UpdateCurrentSession(SessionData.Zero());
+            
+            ShowSessionRecords();
         }
-
+        
         public void Dispose()
         {
             _service.OnSessionUpdated -= _sessionsView.UpdateCurrentSession;
+            _service.OnSessionsRecordsUpdated -= ShowSessionRecords;
+        }
+        
+        private void ShowSessionRecords()
+        {
+            _sessionsView.ClearSessionsRecords();
+            foreach (var record in _service.SessionsRecords)
+            {
+                _sessionsView.AddSessionRecord(record);
+            }
         }
     }
 }

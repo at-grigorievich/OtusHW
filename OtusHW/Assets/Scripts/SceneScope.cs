@@ -19,6 +19,7 @@ public sealed class SceneScope : LifetimeScope
         builder.Register<SerializableRepository>(Lifetime.Singleton).AsImplementedInterfaces();
         builder.Register<ChestSaveLoader>(Lifetime.Singleton).As<ISaveLoader>();
         builder.Register<HeroInventorySaveLoader>(Lifetime.Singleton).As<ISaveLoader>();
+        builder.Register<SessionsSaveLoader>(Lifetime.Singleton).As<ISaveLoader>();
         builder.Register<ISaveService, SaveLoadersService>(Lifetime.Singleton);
 
         builder.Register<HeroInventory>(Lifetime.Singleton).AsSelf();

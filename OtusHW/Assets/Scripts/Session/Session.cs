@@ -33,12 +33,22 @@ namespace ATG.Session
 
         public Session(int index, DateTime startTime)
         {
+            Index = index;
             StartTime = startTime;
             Duration = TimeSpan.Zero;
         }
         
         public Session(int index, DateTime startTime, DateTime endTime)
         {
+            Index = index;
+            StartTime = startTime;
+            EndTime = endTime;
+            Duration = endTime - startTime;
+        }
+        
+        public Session(int index, DateTime startTime, DateTime endTime, TimeSpan duration)
+        {
+            Index = index;
             StartTime = startTime;
             EndTime = endTime;
             Duration = endTime - startTime;
@@ -51,5 +61,8 @@ namespace ATG.Session
         }
         
         public SessionData GetData() => new SessionData(Index, StartTime, EndTime, Duration);
+
+        public static Session FromData(SessionData data) => 
+            new(data.SessionID, data.StartTime, data.EndTime, data.Duration);
     }
 }

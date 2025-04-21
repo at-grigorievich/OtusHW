@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
 
 namespace ATG.Session
 {
@@ -14,8 +14,13 @@ namespace ATG.Session
         
         public Session CurrentSession { get; private set; }
 
+        public SessionData[] SessionsRecords => _previousSessions == null
+                ? Array.Empty<SessionData>()
+                : _previousSessions.Select(session => session.GetData()).ToArray();
+        
         public event Action<SessionData> OnSessionUpdated;
-
+        public event Action OnSessionsRecordsUpdated;
+        
         public void Start()
         {
             _previousSessions ??= new List<Session>();
@@ -33,9 +38,16 @@ namespace ATG.Session
             _cts?.Dispose();
         }
 
-        public void SetupPreviousSessions(Session[] previousSessions)
+        public void SetupPreviousSessions(SessionData[] previousSessionsRecords)
         {
-            _previousSessions = new List<Session>(previousSessions);
+            _previousSessions = new List<Session>(previousSessionsRecords.Length);
+
+            foreach (var record in previousSessionsRecords)
+            {
+                _previousSessions.Add(Session.FromData(record));
+            }
+            
+            OnSessionsRecordsUpdated?.Invoke();
         }
 
         private async UniTask UpdateSessionDuration()
@@ -44,8 +56,7 @@ namespace ATG.Session
             {
                 CurrentSession.UpdateEndTime(DateTime.Now);
                 OnSessionUpdated?.Invoke(CurrentSession.GetData());
-                
-                Debug.Log("asfasffas");
+
                 await UniTask.Delay(1000, cancellationToken: _cts.Token);
             }
         }

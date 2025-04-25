@@ -1,0 +1,19 @@
+﻿using System;
+
+namespace ATG.Observable
+{
+    public sealed class LocalMessageBroker: IMessageBroker
+    {
+        private readonly MessageBroker _broker = new MessageBroker();
+
+        public void Send<T>(T message) where T : IMessage
+        {
+            _broker.Send<T>(message);
+        }
+
+        public ObserveDisposable Subscribe<T>(Action<IMessage> receiver) where T : IMessage
+        {
+            return _broker.Subscribe<T>(receiver);
+        }
+    }
+}

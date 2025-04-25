@@ -1,6 +1,7 @@
 using System;
 using ATG.Observable;
 using DefaultNamespace;
+using UnityEngine;
 
 namespace ATG.Zone
 {
@@ -8,7 +9,7 @@ namespace ATG.Zone
     {
         public readonly IObservableVar<int> MaxAmount;
         public readonly IObservableVar<int> CurrentAmount;
-
+        
         public readonly ResourceType ResourceType;
         
         public int AvailableAmount => MaxAmount.Value - CurrentAmount.Value;
@@ -22,10 +23,23 @@ namespace ATG.Zone
             CurrentAmount = new ObservableVar<int>(currentAmount);
             MaxAmount = new ObservableVar<int>(maxAmount);
         }
+        
+        public void AddAmount(int amount)
+        {
+            int nextAmount = Mathf.Clamp(CurrentAmount.Value + amount, 0, MaxAmount.Value);
+            CurrentAmount.Value = nextAmount;
+        }
+
+        public void RemoveAmount(int amount)
+        {
+            int nextAmount = Mathf.Clamp(CurrentAmount.Value - amount, 0, MaxAmount.Value);
+            CurrentAmount.Value = nextAmount;
+        }
 
         public void Dispose()
         {
-            MaxAmount.Disposable.Dispose();
+            CurrentAmount.Dispose();
+            MaxAmount.Dispose();
         }
     }
 }

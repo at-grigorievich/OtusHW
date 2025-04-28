@@ -1,5 +1,6 @@
 using System;
 using ATG.Observable;
+using ATG.Stats;
 using DefaultNamespace;
 using UnityEngine;
 
@@ -7,12 +8,10 @@ namespace ATG.Zone
 {
     public class ZoneStorage: IDisposable
     {
-        public readonly IObservableVar<int> MaxAmount;
-        public readonly IObservableVar<int> CurrentAmount;
-        
+        private readonly Stat<int> _volume;
         public readonly ResourceType ResourceType;
         
-        public int AvailableAmount => MaxAmount.Value - CurrentAmount.Value;
+        public ObservableVar<int> 
         
         public bool IsFull => CurrentAmount.Value == MaxAmount.Value;
         public bool IsEmpty => CurrentAmount.Value == 0;

@@ -40,16 +40,6 @@ namespace ATG.Zone
             _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
         }
 
-        public void AddAmount(int amount)
-        {
-            _storage.AddAmount(amount);
-        }
-
-        public void RemoveAmount(int amount)
-        {
-            _storage.RemoveAmount(amount);
-        }
-
         public void Start()
         {
             _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
@@ -59,6 +49,21 @@ namespace ATG.Zone
         {
             _storage?.Dispose();
             _dis?.Dispose();
+        }
+
+        public void LevelUp()
+        {
+            _storage.AddLevel();
+        }
+        
+        public void AddAmount(int amount)
+        {
+            _storage.AddAmount(amount);
+        }
+
+        public void RemoveAmount(int amount)
+        {
+            _storage.RemoveAmount(amount);
         }
     }
 }

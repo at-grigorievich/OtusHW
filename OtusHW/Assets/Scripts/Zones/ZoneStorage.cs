@@ -28,6 +28,8 @@ namespace ATG.Zone
         public void AddAmount(int amount) => _volume.AddValue(amount);
         public void RemoveAmount(int amount) => _volume.RemoveValue(amount);
 
+        public void AddLevel() => _volume.AddLevel();
+        
         public void Dispose() => _volume.Dispose();
     }
 }

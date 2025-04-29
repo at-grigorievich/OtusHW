@@ -21,7 +21,8 @@ public sealed class ConveyorCreator
             .WithParameter(view)
             .WithParameter("loadZone", loadZone)
             .WithParameter("unloadZone", unloadZone)
-            .WithParameter(config.ProduceDurationInSeconds)
+            .WithParameter("produceInSeconds", config.ProceedDelay)
+            .WithParameter(config.ConvertDelayStat.Create())
             .AsSelf().AsImplementedInterfaces();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using ATG.Stats;
 using ATG.Zone;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -12,9 +13,9 @@ namespace DefaultNamespace.Conveyor
         private readonly ZonePresenter _loadZone;
         private readonly ZonePresenter _unloadZone;
 
-        private float _convertDurationInSeconds;
-        private float _currentDuration;
+        private readonly Stat<int> _convertDelays;
         
+        private float _currentDuration;
         
         private CancellationTokenSource _cts;
 
@@ -23,34 +24,41 @@ namespace DefaultNamespace.Conveyor
         public event Action OnConvertStarted;
         public event Action OnConvertFinished;
         
-        public ConveyorProcessor(ZonePresenter loadZone, ZonePresenter unloadZone, float convertDurationInSeconds)
+        public ConveyorProcessor(ZonePresenter loadZone, ZonePresenter unloadZone, Stat<int> convertDelays)
         {
             _loadZone = loadZone;
             _unloadZone = unloadZone;
-            _convertDurationInSeconds = convertDurationInSeconds;
+            _convertDelays = convertDelays;
         }
         
         public void Start()
         {
             Dispose();
             
-            _loadZone.OnAmountChanged += OnAmountChanged;
-            _unloadZone.OnAmountChanged += OnAmountChanged;
+            _loadZone.OnAmountChanged += StartConvert;
+            _unloadZone.OnAmountChanged += StartConvert;
+            _unloadZone.OnLevelChanged += StartConvert;
             
-            OnAmountChanged();
+            StartConvert();
         }
         
         public void Dispose()
         {
-            _loadZone.OnAmountChanged -= OnAmountChanged;
-            _unloadZone.OnAmountChanged -= OnAmountChanged;
+            _loadZone.OnAmountChanged -= StartConvert;
+            _unloadZone.OnAmountChanged -= StartConvert;
+            _unloadZone.OnLevelChanged -= StartConvert;
             
             _cts?.Cancel();
             _cts?.Dispose();
             _cts = null;
         }
 
-        private void OnAmountChanged()
+        public void LevelUp()
+        {
+            _convertDelays.ChangeLevel(_convertDelays.CurrentLevel.Value + 1);
+        }
+        
+        private void StartConvert()
         {
             if(_cts != null) return;
             if(_loadZone.IsEmpty || _unloadZone.IsFull) return;
@@ -63,7 +71,6 @@ namespace DefaultNamespace.Conveyor
         {
             _unloadZone.AddAmount(3);
         }
-        
         private async UniTask WaitToConvert(CancellationToken token)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(.5f), cancellationToken: token);
@@ -77,10 +84,10 @@ namespace DefaultNamespace.Conveyor
             {
                 if (token.IsCancellationRequested == true) return;
 
-                if (_currentDuration < _convertDurationInSeconds)
+                if (_currentDuration < _convertDelays.CurrentValue)
                 {
                     _currentDuration += Time.deltaTime;
-                    OnConvertProgressChanged?.Invoke(_currentDuration / _convertDurationInSeconds);
+                    OnConvertProgressChanged?.Invoke(_currentDuration /_convertDelays.CurrentValue);
                     await UniTask.Yield();
                 }
                 else break;

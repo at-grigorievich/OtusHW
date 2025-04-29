@@ -1,4 +1,5 @@
 ﻿using System;
+using ATG.Stats;
 using ATG.Zone;
 using DefaultNamespace.Conveyor;
 using VContainer.Unity;
@@ -13,14 +14,15 @@ public sealed class Conveyor : IStartable, IDisposable
     private readonly ZoneProduceTimer _produceTimer;
     private readonly ConveyorProcessor _conveyorProcessor;
 
-    public Conveyor(ConveyorView view, ZonePresenter loadZone, ZonePresenter unloadZone, int produceInSeconds)
+    public Conveyor(ConveyorView view, ZonePresenter loadZone, ZonePresenter unloadZone, int produceInSeconds,
+        Stat<int> convertDelayStat)
     {
         _view = view;
         _loadZone = loadZone;
         _unloadZone = unloadZone;
 
         _produceTimer = new ZoneProduceTimer(produceInSeconds);
-        _conveyorProcessor = new ConveyorProcessor(loadZone, unloadZone, 4);
+        _conveyorProcessor = new ConveyorProcessor(loadZone, unloadZone, convertDelayStat);
         
         _produceTimer.OnCompleted += OnProducedTime;
         
@@ -37,7 +39,6 @@ public sealed class Conveyor : IStartable, IDisposable
         _produceTimer.Reset();   
         _conveyorProcessor.Start();
     }
-    
     public void Dispose()
     {
         _loadZone.Dispose();
@@ -53,11 +54,14 @@ public sealed class Conveyor : IStartable, IDisposable
         _conveyorProcessor.OnConvertProgressChanged -= OnConvertProgressChanged;
     }
 
+    public void LoadZoneLevelUp() => _loadZone.LevelUp();
+    public void UnloadZoneLevelUp() => _unloadZone.LevelUp();
+    public void ProcessorLevelUp() => _conveyorProcessor.LevelUp();
+    
     private void OnStartConverting()
     {
         _view.StartConvert();
     }
-
     private void OnStopConverting()
     {
         _view.StopConvert();

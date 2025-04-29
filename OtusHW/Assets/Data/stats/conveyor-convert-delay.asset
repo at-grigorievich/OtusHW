@@ -9,8 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f356df79d5e2400ebe63e7592a7293fe, type: 3}
-  m_Name: wood-conveyor
+  m_Script: {fileID: 11500000, guid: a010582e12964dc0b724ed1c645808c9, type: 3}
+  m_Name: conveyor-convert-delay
   m_EditorClassIdentifier: 
-  <ProceedDelay>k__BackingField: 1
-  <ConvertDelayStat>k__BackingField: {fileID: 11400000, guid: 8d99f51cf375f9e4fb016ee7fa2a3372, type: 2}
+  updatesByLevel:
+  - requireLevel: 1
+    value: 10
+  - requireLevel: 2
+    value: 8
+  - requireLevel: 3
+    value: 5
+  - requireLevel: 4
+    value: 2
+  - requireLevel: 5
+    value: 1

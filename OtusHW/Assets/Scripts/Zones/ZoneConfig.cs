@@ -1,4 +1,5 @@
-﻿using DefaultNamespace;
+﻿using ATG.Stats;
+using DefaultNamespace;
 using UnityEngine;
 
 namespace ATG.Zone
@@ -7,7 +8,7 @@ namespace ATG.Zone
     public class ZoneConfig: ScriptableObject
     {
         [field: SerializeField] public ResourceType ResourceType { get; private set; } 
-        [field: SerializeField] public int CurrentAmount { get; private set; }
-        [field: SerializeField] public int MaxAmount { get; private set; }
+        [field: SerializeField] public int DefaultAmount { get; private set; }
+        [field: SerializeField] public IntStatConfig StatConfig { get; private set; }
     }
 }

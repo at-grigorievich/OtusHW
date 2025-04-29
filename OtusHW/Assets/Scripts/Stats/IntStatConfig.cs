@@ -32,7 +32,7 @@ namespace ATG.Stats
         }
     }
 
-    public class Stat<T>
+    public class Stat<T>: IDisposable
     {
         public readonly Dictionary<int, StatUpdater<T>> _updatesByLevel;
         public readonly ObservableVar<int> CurrentLevel;
@@ -55,11 +55,18 @@ namespace ATG.Stats
             bool isMax = level >= maxLevel;
             
             if(level >= maxLevel) level = maxLevel;
-
+            if(level < 0) level = 0;
+            
             IsMaxLevel.Value = isMax;
             
             CurrentValue = _updatesByLevel[level].Value;
             CurrentLevel.Value = level;
+        }
+
+        public void Dispose()
+        {
+            CurrentLevel?.Dispose();
+            IsMaxLevel?.Dispose();
         }
     }
     

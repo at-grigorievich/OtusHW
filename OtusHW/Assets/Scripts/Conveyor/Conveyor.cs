@@ -3,7 +3,7 @@ using ATG.Zone;
 using DefaultNamespace.Conveyor;
 using VContainer.Unity;
 
-public sealed class Conveyor : IStartable, ITickable, IDisposable
+public sealed class Conveyor : IStartable, IDisposable
 {
     private readonly ConveyorView _view;
     
@@ -20,7 +20,7 @@ public sealed class Conveyor : IStartable, ITickable, IDisposable
         _unloadZone = unloadZone;
 
         _produceTimer = new ZoneProduceTimer(produceInSeconds);
-        _conveyorProcessor = new ConveyorProcessor(loadZone, unloadZone, 10);
+        _conveyorProcessor = new ConveyorProcessor(loadZone, unloadZone, 4);
         
         _produceTimer.OnCompleted += OnProducedTime;
         
@@ -38,16 +38,12 @@ public sealed class Conveyor : IStartable, ITickable, IDisposable
         _conveyorProcessor.Start();
     }
     
-    public void Tick()
-    {
-        _produceTimer.Tick();
-    }
-    
     public void Dispose()
     {
         _loadZone.Dispose();
         _unloadZone.Dispose();
         
+        _produceTimer.Dispose();
         _conveyorProcessor.Dispose();
         
         _produceTimer.OnCompleted -= OnProducedTime;

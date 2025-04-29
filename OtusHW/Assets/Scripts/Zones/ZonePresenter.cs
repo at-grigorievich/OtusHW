@@ -1,6 +1,5 @@
 using System;
 using ATG.Observable;
-using UnityEngine;
 using VContainer.Unity;
 
 namespace ATG.Zone
@@ -10,25 +9,35 @@ namespace ATG.Zone
         private readonly ZoneStorage _storage;
         private readonly ZoneView _view;
 
-        private ObserveDisposable _dis;
+        private CompositeObserveDisposable _dis;
         
         public bool IsFull => _storage.IsFull;
         public bool IsEmpty => _storage.IsEmpty;
 
         public event Action OnAmountChanged;
+        public event Action OnLevelChanged;
         
         public ZonePresenter(ZoneStorage storage, ZoneView view)
         {
             _storage = storage;
             _view = view;
+
+            _dis = new CompositeObserveDisposable();
             
-            _dis = _storage.CurrentAmount.Subscribe(OnCurrentAmountChanged);
+            _storage.CurrentValue.Subscribe(OnCurrentAmountChanged).AddTo(_dis);
+            _storage.CurrentLevel.Subscribe(OnStorageLevelChanged).AddTo(_dis);
         }
 
         private void OnCurrentAmountChanged(int obj)
         {
             OnAmountChanged?.Invoke();
-            _view.UpdateAmounts(_storage.CurrentAmount.Value, _storage.MaxAmount.Value);
+            _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
+        }
+
+        private void OnStorageLevelChanged(int lvl)
+        {
+            OnLevelChanged?.Invoke();
+            _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
         }
 
         public void AddAmount(int amount)
@@ -43,7 +52,7 @@ namespace ATG.Zone
 
         public void Start()
         {
-            _view.UpdateAmounts(_storage.CurrentAmount.Value, _storage.MaxAmount.Value);
+            _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
         }
         
         public void Dispose()

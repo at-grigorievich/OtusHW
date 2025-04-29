@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: load-zone
   m_EditorClassIdentifier: 
   <ResourceType>k__BackingField: 1
-  <CurrentAmount>k__BackingField: 3
-  <MaxAmount>k__BackingField: 15
+  <DefaultAmount>k__BackingField: 0
+  <StatConfig>k__BackingField: {fileID: 11400000, guid: bffc4852fb34dfc4ebf3df11d01075e2, type: 2}

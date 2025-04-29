@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f356df79d5e2400ebe63e7592a7293fe, type: 3}
   m_Name: wood-conveyor
   m_EditorClassIdentifier: 
-  <ProduceDurationInSeconds>k__BackingField: 10
+  <ProduceDurationInSeconds>k__BackingField: 1

@@ -27,7 +27,7 @@ namespace DefaultNamespace.Conveyor
         {
             _loadZone = loadZone;
             _unloadZone = unloadZone;
-            _convertDurationInSeconds = 1f;
+            _convertDurationInSeconds = convertDurationInSeconds;
         }
         
         public void Start()
@@ -66,7 +66,7 @@ namespace DefaultNamespace.Conveyor
         
         private async UniTask WaitToConvert(CancellationToken token)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+            await UniTask.Delay(TimeSpan.FromSeconds(.5f), cancellationToken: token);
             
             _loadZone.RemoveAmount(1);
             OnConvertStarted?.Invoke();
@@ -86,13 +86,13 @@ namespace DefaultNamespace.Conveyor
                 else break;
             }
             
-            OnConvertFinished?.Invoke();
-            
             _cts.Cancel();
             _cts.Dispose();
             _cts = null;
             
             Convert();
+            
+            OnConvertFinished?.Invoke();
         }
     }
 }

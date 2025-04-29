@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Threading;
+using ATG.Observable;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using VContainer.Unity;
 
 namespace ATG.Zone
 {
-    public class ZoneProduceTimer: ITickable
+    public class ZoneProduceTimer: IDisposable
     {
         private float _produceDuration;
-        private float _currentDuration;
 
-        public bool IsCompleted { get; private set; } = true;
+        private CancellationTokenSource _cts;
         
         public event Action OnCompleted;
         
@@ -17,24 +19,25 @@ namespace ATG.Zone
         {
             _produceDuration = produceDuration;
         }
-
-        public void Tick()
+        
+        public void Reset()
         {
-            if(IsCompleted == true) return;
-            if (_currentDuration < _produceDuration)
-            {
-                _currentDuration += Time.deltaTime;
-                return;
-            }
-            
-            IsCompleted = true;
+            Dispose();
+            _cts = new CancellationTokenSource();
+            StartTimer().Forget();
+        }
+
+        private async UniTask StartTimer()
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(_produceDuration), cancellationToken: _cts.Token);
             OnCompleted?.Invoke();
         }
 
-        public void Reset()
+        public void Dispose()
         {
-            IsCompleted = false;
-            _currentDuration = 0f;
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = null;
         }
     }
 }

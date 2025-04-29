@@ -11,7 +11,7 @@ namespace ATG.Zone
 
         public ZonePresenter Create()
         {
-            ZoneStorage storage = new(config.ResourceType, config.CurrentAmount, config.MaxAmount);
+            ZoneStorage storage = new(config.ResourceType, config.DefaultAmount, config.StatConfig.Create());
             return new(storage, view); 
         }
     }

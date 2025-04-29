@@ -16,10 +16,10 @@ MonoBehaviour:
   - requireLevel: 1
     value: 10
   - requireLevel: 2
-    value: 20
+    value: 15
   - requireLevel: 3
-    value: 30
+    value: 20
   - requireLevel: 4
-    value: 40
+    value: 25
   - requireLevel: 5
-    value: 50
+    value: 28

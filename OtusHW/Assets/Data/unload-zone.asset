@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: unload-zone
   m_EditorClassIdentifier: 
   <ResourceType>k__BackingField: 2
-  <CurrentAmount>k__BackingField: 0
-  <MaxAmount>k__BackingField: 28
+  <DefaultAmount>k__BackingField: 0
+  <StatConfig>k__BackingField: {fileID: 11400000, guid: fdc6899199364bd43bb2cfbe369f91d1, type: 2}

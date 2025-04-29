@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updatesByLevel:
   - requireLevel: 1
-    value: 20
+    value: 5
   - requireLevel: 2
-    value: 40
+    value: 8
   - requireLevel: 3
-    value: 60
+    value: 10
   - requireLevel: 4
-    value: 80
+    value: 12
   - requireLevel: 5
-    value: 100
+    value: 15

@@ -3,21 +3,19 @@ using UnityEditor.Experimental.GraphView;
 
 namespace ATG.Dialogues
 {
-    public class DialogueEdgeView: Edge
+    public class DialogueEdgeView : Edge
     {
         [UsedImplicitly]
-        public DialogueEdgeView()
-        {
-            
-        }
-        
-        /*public string GetInputId() =>
-            ((DialogueNodeView)this.input.node).GetId();
-        
+        public DialogueEdgeView() { }
+
         public string GetInputId() =>
+            ((DialogueNodeView)this.input.node).GetId();
+
+        public string GetOutputId() =>
             ((DialogueNodeView)this.output.node).GetId();
 
         public int GetOutputIndex() =>
-            ((DialogueNodeView)this.output.node).IndexOfOutputPort(this.output);*/
+            ((DialogueNodeView)this.output.node).IndexOfOutputPort(this.output);
+
     }
 }

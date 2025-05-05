@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -40,13 +39,13 @@ namespace ATG.Dialogues
             var nodeId = Guid.NewGuid().ToString();
             DialogueNodeView nodeView = CreateNode(nodeId, fixedLocalPosition);
 
-            //List<Node> nodes = this.nodes.ToList();
-            //nodeView.SetRoot(nodes.Count == 1);
+            List<Node> nodes = this.nodes.ToList();
+            nodeView.SetRoot(nodes.Count == 1);
         }
 
         public DialogueNodeView CreateNode(string id, Vector2 position)
         {
-            DialogueNodeView node = new DialogueNodeView();
+            DialogueNodeView node = new DialogueNodeView(id);
             node.SetPosition(new Rect(position, Vector2.zero));
             
             AddElement(node);
@@ -86,6 +85,87 @@ namespace ATG.Dialogues
             }
 
             return result;
+        }
+
+        public void SetRootNode(string rootNodeId)
+        {
+            foreach (var node in nodes)
+            {
+                DialogueNodeView dialogueNode = (DialogueNodeView)node;
+                dialogueNode.SetRoot(dialogueNode.GetId() == rootNodeId);
+            }
+        }
+
+        public void SetRootNode(DialogueNodeView nodeView)
+        {
+            foreach (var node in nodes)
+            {
+                DialogueNodeView dialogueNode = (DialogueNodeView)node;
+                dialogueNode.SetRoot(dialogueNode == nodeView);
+            }
+        }
+
+        public bool TryGetRootNode(out DialogueNodeView result)
+        {
+            foreach (var node in nodes)
+            {
+                result = (DialogueNodeView)node;
+                if(result.IsRoot) return true;
+            }
+
+            result = default;
+            return false;
+        }
+
+        public void ResetState()
+        {
+            foreach (var node in nodes)
+            {
+                RemoveElement(node);
+            }
+
+            foreach (var edge in edges)
+            {
+                RemoveElement(edge );
+            }
+        }
+
+        public DialogueNodeView[] GetNodes()
+        {
+            List<DialogueNodeView> res = new List<DialogueNodeView>();
+            foreach (var node in nodes)
+            {
+                res.Add((DialogueNodeView)node);
+            }
+
+            return res.ToArray();
+        }
+
+        public DialogueEdgeView[] GetEdges()
+        {
+            var edges = this.edges.ToList();
+            
+            DialogueEdgeView[] res = new DialogueEdgeView[edges.Count];
+
+            for (int i = 0; i < edges.Count; i++)
+            {
+                res[i] = (DialogueEdgeView)edges[i];
+            }
+
+            return res;
+        }
+
+        public void CreateEdge(DialogueNodeView outputNode, int outputIndex, DialogueNodeView inputNode)
+        {
+            Port outputPort = outputNode.GetOutputPort(outputIndex);
+            Port inputPort = inputNode.GetInputPort();
+
+            DialogueEdgeView edge = new DialogueEdgeView()
+            {
+                input = inputPort,
+                output = outputPort
+            };
+            AddElement(edge);
         }
     }
 }

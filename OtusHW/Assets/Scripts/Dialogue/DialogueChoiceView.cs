@@ -19,6 +19,8 @@ namespace ATG.Dialogues
             CreatePortOutput();
             this.style.flexDirection = FlexDirection.Row;
         }
+        
+        public string GetMessage() => textAnswer.value;
 
         private void CreateButtonDelete()
         {
@@ -56,5 +58,9 @@ namespace ATG.Dialogues
             port.portColor = Color.yellow;
             Add(port);
         }
+
+        public Port GetPort() => port;
+
+        public bool IsPort(Port p) => port == p;
     }
 }

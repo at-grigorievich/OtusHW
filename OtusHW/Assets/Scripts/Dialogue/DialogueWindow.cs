@@ -10,6 +10,7 @@ namespace ATG.Dialogues
         private void CreateGUI()
         {
             CreateGraph();
+            CreateToolbar();
         }
     
         private void CreateGraph()
@@ -18,6 +19,12 @@ namespace ATG.Dialogues
             _graphView.StretchToParentSize();
             
             rootVisualElement.Insert(0, _graphView);
+        }
+
+        private void CreateToolbar()
+        {
+            DialogueToolbar toolbar = new DialogueToolbar(_graphView);
+            rootVisualElement.Add(toolbar);
         }
     }
 }

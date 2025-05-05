@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace ATG.Dialogues
@@ -26,7 +27,7 @@ namespace ATG.Dialogues
                 text = "X",
                 clickable = new Clickable(this.OnDeleteClicked)
             };
-            //btn.AddToClassList("dialogue-node-remove-choice-button");
+            btn.AddToClassList("dialogue-node-remove-choice-button");
             this.Add(btn);
         }
 
@@ -34,13 +35,26 @@ namespace ATG.Dialogues
         {
             this.textAnswer = new TextField
             {
-                
-            }
+                value = answer,
+                multiline = false,
+                style =
+                {
+                    width = 128
+                }
+            };
+            this.Add(this.textAnswer);
         }
         
         private void OnDeleteClicked(EventBase obj)
         {
-            throw new NotImplementedException();
+            OnDelete?.Invoke(this);
+        }
+
+        private void CreatePortOutput()
+        {
+            port = Port.Create<DialogueEdgeView>(Orientation.Horizontal, Direction.Output, Port.Capacity.Single, null);
+            port.portColor = Color.yellow;
+            Add(port);
         }
     }
 }

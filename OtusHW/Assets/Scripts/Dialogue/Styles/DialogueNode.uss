@@ -1,1 +1,30 @@
-﻿
+﻿.dialogue-node-text-id
+{
+    width: 100;
+}
+
+.dialogue_node_main-container
+{
+    background-color: #1D1D1E;
+}
+
+.dialogue-node-text-message
+{
+    min-width: 120;
+    min-height: 80;
+    padding: 2;
+}
+
+.dialogue-node-add-choice-button
+{
+    background-color: yellow;
+    color: black;
+    -unity-font-style: bold;
+}
+
+.dialogue-node-remove-choice-button
+{
+    background-color: red;
+    color: white;
+    -unity-font-style: bold;
+}

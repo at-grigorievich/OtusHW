@@ -1,10 +1,12 @@
-﻿using UnityEditor.Experimental.GraphView;
+﻿using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 
 namespace ATG.Dialogues
 {
     public sealed class DialogueNodeView : Node
     {
+        private readonly List<DialogueChoiceView> _choices;
         //private readonly string _id;
 
         private TextField _textMessage;
@@ -15,10 +17,12 @@ namespace ATG.Dialogues
         {
             //_id = id;
             title = "Dialogue Node";
-
+            _choices = new List<DialogueChoiceView>();
+            
             CreateTextMessage();
             CreatePortInput();
             CreateButtonAddChoice();
+            RefreshExpandedState();
         }
 
         private void CreateTextMessage()
@@ -35,7 +39,7 @@ namespace ATG.Dialogues
 
         private void CreatePortInput()
         {
-            _inputPort = Port.Create<Edge>(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi,null);
+            _inputPort = Port.Create<DialogueEdgeView>(Orientation.Horizontal, Direction.Input, Port.Capacity.Multi,null);
             _inputPort.portName = "Input";
             inputContainer.Add(_inputPort);
         }
@@ -47,7 +51,7 @@ namespace ATG.Dialogues
                 text = "Add Choice",
                 clickable = new Clickable(OnCreateChoiceClicked)
             };
-            //button.AddToClassList();
+            button.AddToClassList("dialogue-node-add-choice-button");
             mainContainer.Add(button);
         }
 
@@ -59,10 +63,23 @@ namespace ATG.Dialogues
         private void CreateChoice(string answer)
         {
             DialogueChoiceView choice = new DialogueChoiceView(answer);
-            choice.OnDelete + DeleteChoice;
+            choice.OnDelete += DeleteChoice;
             _choices.Add(choice);
             outputContainer.Add(choice);
             RefreshExpandedState();
+        }
+
+        private void DeleteChoice(DialogueChoiceView choice)
+        {
+            choice.OnDelete -= DeleteChoice;
+            _choices.Remove(choice);
+            outputContainer.Remove(choice);
+            RefreshExpandedState();
+        }
+
+        private void ApplyStyles()
+        {
+            mainContainer.AddToClassList("dialogue_node_main-container");
         }
     }
 }

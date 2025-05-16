@@ -49,13 +49,11 @@ namespace ATG.Characters
             Vector3 targetPosition = CurrentPosition + direction * CurrentSpeed;
             
             MoveTo(targetPosition);
-            AnimateWalk();
         }
 
         private void Idle()
         {
             MoveStop();
-            AnimateIdle();
         }
     }
 }

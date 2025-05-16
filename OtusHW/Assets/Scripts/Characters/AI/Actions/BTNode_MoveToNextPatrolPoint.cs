@@ -32,12 +32,11 @@ namespace ATG.Characters.AI.Actions
             {
                 SwitchToNextPatrolPoint();
                 
-                _presenter.AnimateIdle();
+                _presenter.MoveStop();
                 return NodeResult.success;
             }
             
             _presenter.MoveTo(nextTarget.position);
-            _presenter.AnimateWalk();
             
             return NodeResult.running;
         }

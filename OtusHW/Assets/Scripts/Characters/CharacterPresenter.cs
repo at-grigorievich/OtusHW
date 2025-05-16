@@ -19,8 +19,18 @@ namespace ATG.Characters
         }
         
         public float DistanceTo(Vector3 point) => Vector3.Distance(CurrentPosition, point);
-        public void MoveTo(Vector3 position) => _moveableService.MoveTo(position);
-        public void MoveStop() => _moveableService.Stop();
+
+        public void MoveTo(Vector3 position)
+        {
+            _moveableService.MoveTo(position);
+            AnimateWalk();
+        }
+
+        public void MoveStop()
+        {
+            _moveableService.Stop();
+            AnimateIdle();
+        }
         public void AnimateIdle() => _animatorService.Idle();
         public void AnimateWalk() => _animatorService.Walk();
     }

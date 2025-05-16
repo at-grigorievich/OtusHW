@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   updatesByLevel:
   - requireLevel: 1
-    value: 5
+    value: 4
   - requireLevel: 2
     value: 8
   - requireLevel: 3

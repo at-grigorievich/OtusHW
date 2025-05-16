@@ -4,7 +4,7 @@ using ATG.Zone;
 using DefaultNamespace.Conveyor;
 using VContainer.Unity;
 
-public sealed class Conveyor : IInitializable, IDisposable, ILoadedZoneChecker
+public sealed class Conveyor : IStartable, IDisposable, ILoadedZoneChecker
 {
     private readonly ConveyorView _view;
     
@@ -38,10 +38,10 @@ public sealed class Conveyor : IInitializable, IDisposable, ILoadedZoneChecker
         _conveyorProcessor.OnConvertFinished += OnStopConverting;
     }
 
-    public void Initialize()
+    public void Start()
     {
-        _loadZone.Initialize();
-        _unloadZone.Initialize();
+        _loadZone.Start();
+        _unloadZone.Start();
         
         //_produceTimer.Reset();   
         _conveyorProcessor.Initialize();

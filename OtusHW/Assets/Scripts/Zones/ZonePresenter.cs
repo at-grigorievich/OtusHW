@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace ATG.Zone
 {
-    public sealed class ZonePresenter: IInitializable, IDisposable
+    public sealed class ZonePresenter: IStartable, IDisposable
     {
         private readonly ZoneStorage _storage;
         private readonly ZoneView _view;
@@ -39,7 +39,7 @@ namespace ATG.Zone
                 _onDisposed += () => triggerZone.OnTriggerEntered -= OnTriggerZoneEntered;
             }
         }
-        public void Initialize()
+        public void Start()
         {
             _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
         }
@@ -88,7 +88,7 @@ namespace ATG.Zone
 
              int delta = 0;
 
-             if (AvailableVolume > resInBagCount) delta = resInBagCount;
+             if (AvailableVolume >= resInBagCount) delta = resInBagCount;
              else if (AvailableVolume < resInBagCount) delta = AvailableVolume;
              
              _storage.AddAmount(delta);

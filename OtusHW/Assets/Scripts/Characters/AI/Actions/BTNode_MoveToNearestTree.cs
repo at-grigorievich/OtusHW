@@ -46,15 +46,14 @@ namespace ATG.Characters.AI.Actions
             
             float distance = _presenter.DistanceTo(_nearestTree.Position);
             
-            if (distance < 0.1f)
+            if (distance < 0.9f)
             {
                 _nearestTree = null;
-                _presenter.AnimateIdle();
+                _presenter.MoveStop();
                 return NodeResult.success;
             }
             
             _presenter.MoveTo(_nearestTree.Position);
-            _presenter.AnimateWalk();
             
             return NodeResult.running;
         }

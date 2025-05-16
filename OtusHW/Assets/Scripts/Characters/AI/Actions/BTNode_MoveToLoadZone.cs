@@ -25,12 +25,11 @@ namespace ATG.Characters.AI.Actions
 
             if (distance < 0.1f)
             {
-                _presenter.AnimateIdle();
+                _presenter.MoveStop();
                 return NodeResult.success;
             }
             
             _presenter.MoveTo(targetTransform.position);
-            _presenter.AnimateWalk();
             
             return NodeResult.running;
         }

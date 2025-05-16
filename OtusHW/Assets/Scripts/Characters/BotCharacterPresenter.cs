@@ -46,8 +46,10 @@ namespace ATG.Characters
             ILoadedZoneChecker loadedZoneChecker, IResourceChecker resourceChecker) 
             : base(moveService, animatorService)
         {
-            _inventory = new Bag();
             _view = view;
+            _view.Initialize(this);
+            
+            _inventory = new Bag();
 
             _hasWoodInBagSensor = new BTSensor_HasWoodInBag(blackboard, _inventory);
             _loadZoneAvailableSensor = new BTSensor_LoadZoneAvailable(blackboard, loadedZoneChecker);
@@ -59,18 +61,10 @@ namespace ATG.Characters
             _hasWoodInBagSensor.Update();
             _loadZoneAvailableSensor.Update();
             _forestHasTreeSensor.Update();
-            
-            _view.GetResourceAmountFunc += GetResourceAmount;
-            _view.AddResourceAction += AddElementsByType;
-            _view.RemoveResourceAction += RemoveElementsByType;
         }
         
         public void Dispose()
         {
-            _view.GetResourceAmountFunc -= GetResourceAmount;
-            _view.AddResourceAction -= AddElementsByType;
-            _view.RemoveResourceAction -= RemoveElementsByType;
-            
             _hasWoodInBagSensor.Dispose();
             _loadZoneAvailableSensor.Dispose();
             _forestHasTreeSensor.Dispose();

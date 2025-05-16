@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using DefaultNamespace;
+using UnityEngine;
 
 namespace ATG.Inventory
 {
@@ -21,8 +22,9 @@ namespace ATG.Inventory
         {
             if (_resources.TryAdd(resourceType, count) == false)
                 _resources[resourceType] += count;
-            
-            OnInventoryChanged?.Invoke(new InventoryCheckerEventArgs(resourceType, count));
+
+            int totalCount = _resources[resourceType];
+            OnInventoryChanged?.Invoke(new InventoryCheckerEventArgs(resourceType, totalCount));
         }
 
         public void RemoveElementsByType(ResourceType resourceType, int count)
@@ -30,7 +32,8 @@ namespace ATG.Inventory
             if(_resources.ContainsKey(resourceType) == false) return;
             _resources[resourceType] -= count;
             
-            OnInventoryChanged?.Invoke(new InventoryCheckerEventArgs(resourceType, count));
+            int totalCount = _resources[resourceType];
+            OnInventoryChanged?.Invoke(new InventoryCheckerEventArgs(resourceType, totalCount));
         }
         
         public bool HasResource(ResourceType resourceType)

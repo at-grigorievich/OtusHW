@@ -10,10 +10,8 @@ namespace ATG.Characters
     {
         private Rigidbody _rb;
         private Collider _collider;
-        
-        public event Func<ResourceType, int> GetResourceAmountFunc;
-        public event Action<ResourceType, int> AddResourceAction;
-        public event Action<ResourceType, int> RemoveResourceAction;
+
+        public BotCharacterPresenter Presenter { get; private set; }
         
         private void Awake()
         {
@@ -25,19 +23,15 @@ namespace ATG.Characters
             _rb.isKinematic = true;
         }
         
-        public int GetResourceAmount(ResourceType resourceType)
-        {
-            return GetResourceAmountFunc?.Invoke(resourceType) ?? 0;
-        }
-
-        public void AddElementsByType(ResourceType resourceType, int count)
-        {
-            AddResourceAction?.Invoke(resourceType, count);
-        }
-
-        public void RemoveElementsByType(ResourceType resourceType, int count)
-        {
-            RemoveResourceAction?.Invoke(resourceType, count);
-        }
+        public void Initialize(BotCharacterPresenter presenter) => Presenter = presenter;
+        
+        public int GetResourceAmount(ResourceType resourceType) => 
+            Presenter.GetResourceAmount(resourceType);
+        
+        public void AddElementsByType(ResourceType resourceType, int count) =>
+            Presenter.AddElementsByType(resourceType, count);
+        
+        public void RemoveElementsByType(ResourceType resourceType, int count) => 
+            Presenter.RemoveElementsByType(resourceType, count);
     }
 }

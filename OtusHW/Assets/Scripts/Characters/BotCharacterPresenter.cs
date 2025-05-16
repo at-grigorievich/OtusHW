@@ -36,7 +36,7 @@ namespace ATG.Characters
     {
         private readonly BotCharacterView _view;
         private readonly Bag _inventory;
-
+        
         private readonly BTSensor_HasWoodInBag _hasWoodInBagSensor;
         private readonly BTSensor_LoadZoneAvailable _loadZoneAvailableSensor;
         private readonly BTSensor_ForestHasTree _forestHasTreeSensor;

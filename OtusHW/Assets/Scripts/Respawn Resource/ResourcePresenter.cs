@@ -17,6 +17,8 @@ namespace ATG.Resource
         public event Action<ResourcePresenter> OnResourceAvailable; 
         public event Action<ResourcePresenter> OnDropRequired;
         
+        public Vector3 Position => _view.transform.position;
+        
         public ResourcePresenter(ResourceView view)
         {
             _view = view;
@@ -37,7 +39,7 @@ namespace ATG.Resource
             _view.OnTriggerEntered -= OnTriggerEntered;
         }
         
-        public float GetDistanceTo(Vector3 target) => Vector3.Distance(_view.transform.position, target);
+        public float GetDistanceTo(Vector3 target) => Vector3.Distance(Position, target);
         
         public void StartBirth(float bornDurationInSec)
         {

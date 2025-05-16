@@ -2428,7 +2428,7 @@ MonoBehaviour:
     - {fileID: 1215714692}
     - {fileID: 1383929655}
     - {fileID: 210647807}
-    startBirthDurationInSeconds: 5000
+    startBirthDurationInSeconds: 5
     restartBirthDurationInSeconds: 25
 --- !u!1 &603692919
 GameObject:
@@ -7538,6 +7538,8 @@ GameObject:
   - component: {fileID: 1572691550}
   - component: {fileID: 1572691552}
   - component: {fileID: 1572691551}
+  - component: {fileID: 1572691553}
+  - component: {fileID: 1572691554}
   m_Layer: 0
   m_Name: behaviour-tree
   m_TagString: Untagged
@@ -7585,7 +7587,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b25af8627659c6949b60949c3aa8d91d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedEditorNode: {fileID: 0}
+  selectedEditorNode: {fileID: 1572691553}
   repeatOnFinish: 1
   maxExecutionsPerTick: 1000
   parent: {fileID: 0}
@@ -7886,7 +7888,9 @@ MonoBehaviour:
     width: 160
     height: 45
   parent: {fileID: 1572691548}
-  children: []
+  children:
+  - {fileID: 1572691553}
+  - {fileID: 1572691554}
   behaviourTree: {fileID: 0}
   runtimePriority: 0
   breakpoint: 0
@@ -8084,6 +8088,64 @@ MonoBehaviour:
   - {fileID: 1262501597}
   - {fileID: 1995260773}
   - {fileID: 1082606373}
+--- !u!114 &1572691553
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572691532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea389cb70b4416e8b7cdecf79a267f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Move To Nearest Tree
+  rect:
+    serializedVersion: 2
+    x: 120
+    y: 880
+    width: 160
+    height: 45
+  parent: {fileID: 1572691546}
+  children: []
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  ownerView: {fileID: 889154195}
+  scope: {fileID: 577539939}
+--- !u!114 &1572691554
+MonoBehaviour:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572691532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58fe7bc6a9b18e148b82820c7c1c0a90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: Wait
+  rect:
+    serializedVersion: 2
+    x: 300
+    y: 880
+    width: 160
+    height: 45
+  parent: {fileID: 1572691546}
+  children: []
+  behaviourTree: {fileID: 0}
+  runtimePriority: 0
+  breakpoint: 0
+  time:
+    useConstant: 1
+    mode: 0
+    blackboard: {fileID: 0}
+    key: 
+    constantValue: 1.5
+  randomDeviation: 0
+  continueOnRestart: 0
 --- !u!1001 &1582307064
 PrefabInstance:
   m_ObjectHideFlags: 0

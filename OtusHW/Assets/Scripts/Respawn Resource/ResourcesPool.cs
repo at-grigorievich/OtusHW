@@ -89,7 +89,7 @@ namespace ATG.Resource
             var allResources = _availableResources[resourceType];
 
             resourcePresenter = allResources
-                .OrderByDescending(res => res.GetDistanceTo(targetPosition))
+                .OrderBy(res => res.GetDistanceTo(targetPosition))
                 .First();
 
             return true;

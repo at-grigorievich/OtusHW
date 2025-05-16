@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -26,15 +27,15 @@ namespace ATG.Resource
         }
     }
     
-    public class ResourcesPool: IStartable, IDisposable
+    public class ResourcesPool: IStartable, IDisposable, IResourceChecker
     {
         private readonly float _startBirthDurationInSeconds;
         private readonly float _restartBirthDurationInSeconds;
         private readonly ResourcePresenter[] _resources;
 
-        public readonly HashSet<ResourcePresenter> AvailableResources;
+        private readonly Dictionary<ResourceType, HashSet<ResourcePresenter>> _availableResources;
         
-        public int AvailableResourcesCount => AvailableResources.Count;
+        public event Action<ResourceCheckerEventArgs> OnAvailableResourceChanged;
         
         public ResourcesPool(ResourcePresenter[] resources, float sbd, float rbd)
         {
@@ -43,11 +44,11 @@ namespace ATG.Resource
             _startBirthDurationInSeconds = sbd;
             _restartBirthDurationInSeconds = rbd;
             
-            AvailableResources = new HashSet<ResourcePresenter>();
+            _availableResources = new ();
             
             foreach (var resourcePresenter in _resources)
             {
-                resourcePresenter.OnResourceAvailable += OnResourceAvailable;
+                resourcePresenter.OnResourceAvailable += OnResourceAvailableChanged;
                 resourcePresenter.OnDropRequired += OnResourceDropRequired;
             }
         }
@@ -66,21 +67,58 @@ namespace ATG.Resource
             foreach (var resourcePresenter in _resources)
             {
                 resourcePresenter.OnDropRequired -= OnResourceDropRequired;
-                resourcePresenter.OnResourceAvailable -= OnResourceAvailable;
+                resourcePresenter.OnResourceAvailable -= OnResourceAvailableChanged;
             }
         }
 
-        private void OnResourceAvailable(ResourcePresenter availableResource)
+        public bool HasResourceByType(ResourceType resourceType)
         {
-            AvailableResources.Add(availableResource);
+            if (_availableResources.TryGetValue(resourceType, out var resource) == false) 
+                return false;
+            
+            return resource.Count > 0;
+        }
+        
+        public bool TryGetNearestResourceByType(ResourceType resourceType, Vector3 targetPosition,
+            out ResourcePresenter resourcePresenter)
+        {
+            resourcePresenter = null;
+            
+            if (HasResourceByType(resourceType) == false) return false;
+
+            var allResources = _availableResources[resourceType];
+
+            resourcePresenter = allResources
+                .OrderByDescending(res => res.GetDistanceTo(targetPosition))
+                .First();
+
+            return true;
+        }
+        
+        private void OnResourceAvailableChanged(ResourcePresenter availableResource)
+        {
+            if (_availableResources.ContainsKey(availableResource.ResourceType) == false)
+            {
+                _availableResources.Add(availableResource.ResourceType, new HashSet<ResourcePresenter>());
+            }
+            _availableResources[availableResource.ResourceType].Add(availableResource);
+            
+            int availableResourcesCount = _availableResources[availableResource.ResourceType].Count;
+            OnAvailableResourceChanged?.Invoke(
+                new ResourceCheckerEventArgs(availableResource.ResourceType, availableResourcesCount));
         }
         
         private void OnResourceDropRequired(ResourcePresenter resourcePresenter)
         {
-            if(AvailableResources.Contains(resourcePresenter) == false) return;
+            if(_availableResources.TryGetValue(resourcePresenter.ResourceType, 
+                   out var resourceSet) == false) return;
             
-            AvailableResources.Remove(resourcePresenter);
+            resourceSet.Remove(resourcePresenter);
             resourcePresenter.StartBirth(_restartBirthDurationInSeconds);
+            
+            int availableResourcesCount = resourceSet.Count;
+            OnAvailableResourceChanged?.Invoke(
+                new ResourceCheckerEventArgs(resourcePresenter.ResourceType, availableResourcesCount));
         }
     }
 }

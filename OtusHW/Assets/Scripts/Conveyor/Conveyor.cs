@@ -4,7 +4,7 @@ using ATG.Zone;
 using DefaultNamespace.Conveyor;
 using VContainer.Unity;
 
-public sealed class Conveyor : IStartable, IDisposable
+public sealed class Conveyor : IInitializable, IDisposable, ILoadedZoneChecker
 {
     private readonly ConveyorView _view;
     
@@ -13,6 +13,13 @@ public sealed class Conveyor : IStartable, IDisposable
 
     //private readonly ZoneProduceTimer _produceTimer;
     private readonly ConveyorProcessor _conveyorProcessor;
+
+    public bool IsLoadedZoneAvailable => _loadZone.IsFull == false;
+    public event Action OnLoadedZoneAmountChanged
+    {
+        add => _loadZone.OnAmountChanged += value;
+        remove => _loadZone.OnAmountChanged -= value;
+    }
     
     public Conveyor(ConveyorView view, ZonePresenter loadZone, ZonePresenter unloadZone, int produceInSeconds,
         Stat<int> convertDelayStat)
@@ -31,13 +38,13 @@ public sealed class Conveyor : IStartable, IDisposable
         _conveyorProcessor.OnConvertFinished += OnStopConverting;
     }
 
-    public void Start()
+    public void Initialize()
     {
-        _loadZone.Start();
-        _unloadZone.Start();
+        _loadZone.Initialize();
+        _unloadZone.Initialize();
         
         //_produceTimer.Reset();   
-        _conveyorProcessor.Start();
+        _conveyorProcessor.Initialize();
     }
     public void Dispose()
     {

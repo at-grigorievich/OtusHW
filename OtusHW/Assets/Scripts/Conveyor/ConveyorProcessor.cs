@@ -8,7 +8,7 @@ using VContainer.Unity;
 
 namespace DefaultNamespace.Conveyor
 {
-    public sealed class ConveyorProcessor: IStartable, IDisposable
+    public sealed class ConveyorProcessor: IInitializable, IDisposable
     {
         private readonly ZonePresenter _loadZone;
         private readonly ZonePresenter _unloadZone;
@@ -31,7 +31,7 @@ namespace DefaultNamespace.Conveyor
             _convertDelays = convertDelays;
         }
         
-        public void Start()
+        public void Initialize()
         {
             Dispose();
             

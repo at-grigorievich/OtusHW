@@ -2,6 +2,7 @@
 using System.Threading;
 using ATG.Inventory;
 using Cysharp.Threading.Tasks;
+using DefaultNamespace;
 using UnityEngine;
 
 namespace ATG.Resource
@@ -11,6 +12,8 @@ namespace ATG.Resource
         private readonly ResourceView _view;
         private CancellationTokenSource _cts;
 
+        public ResourceType ResourceType => _view.ResType;
+        
         public event Action<ResourcePresenter> OnResourceAvailable; 
         public event Action<ResourcePresenter> OnDropRequired;
         
@@ -33,7 +36,9 @@ namespace ATG.Resource
             
             _view.OnTriggerEntered -= OnTriggerEntered;
         }
-
+        
+        public float GetDistanceTo(Vector3 target) => Vector3.Distance(_view.transform.position, target);
+        
         public void StartBirth(float bornDurationInSec)
         {
             _cts?.Cancel();

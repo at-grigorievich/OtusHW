@@ -6,7 +6,7 @@ using VContainer.Unity;
 
 namespace ATG.Zone
 {
-    public sealed class ZonePresenter: IStartable, IDisposable
+    public sealed class ZonePresenter: IInitializable, IDisposable
     {
         private readonly ZoneStorage _storage;
         private readonly ZoneView _view;
@@ -39,7 +39,7 @@ namespace ATG.Zone
                 _onDisposed += () => triggerZone.OnTriggerEntered -= OnTriggerZoneEntered;
             }
         }
-        public void Start()
+        public void Initialize()
         {
             _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
         }
@@ -68,22 +68,20 @@ namespace ATG.Zone
 
         private void OnCurrentAmountChanged(int obj)
         {
-            OnAmountChanged?.Invoke();
             _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
+            OnAmountChanged?.Invoke();
         }
 
         private void OnStorageLevelChanged(int lvl)
         {
-            OnLevelChanged?.Invoke();
             _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
+            OnLevelChanged?.Invoke();
         }
         
         private void OnTriggerZoneEntered(Collider obj)
         {
              if(obj.TryGetComponent(out IInventoryOwner inventoryOwner) == false) return;
              int resInBagCount = inventoryOwner.GetResourceAmount(_storage.ResourceType);
-             
-             Debug.Log(resInBagCount);
              
              if(resInBagCount == 0) return;
              if(_storage.IsFull) return;

@@ -15,16 +15,16 @@ namespace ATG.Characters
 
         public void Create(IContainerBuilder builder)
         {
-            builder.Register<CharacterController, PlayerCharacterController>(Lifetime.Singleton)
+            builder.Register<CharacterPresenter, PlayerCharacterPresenter>(Lifetime.Singleton)
                 .WithParameter<IMoveableService>(navMeshMoveServiceFactory.Create())
                 .WithParameter<IAnimatorService>(crossfadeAnimatorFactory.Create())
                 .AsSelf().AsImplementedInterfaces();
         }
     }
     
-    public sealed class PlayerCharacterController: CharacterController, ITickable
+    public sealed class PlayerCharacterPresenter: CharacterPresenter, ITickable
     {
-        public PlayerCharacterController(IMoveableService moveService, IAnimatorService animatorService) 
+        public PlayerCharacterPresenter(IMoveableService moveService, IAnimatorService animatorService) 
             : base(moveService, animatorService)
         {
         }

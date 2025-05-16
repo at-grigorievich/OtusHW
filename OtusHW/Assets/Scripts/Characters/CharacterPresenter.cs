@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ATG.Characters
 {
-    public abstract class CharacterController
+    public abstract class CharacterPresenter
     {
         private readonly IMoveableService _moveableService;
         private readonly IAnimatorService _animatorService;
@@ -12,7 +12,7 @@ namespace ATG.Characters
         public Vector3 CurrentPosition => _moveableService.CurrentPosition;
         public float CurrentSpeed => _moveableService.Speed;
 
-        public CharacterController(IMoveableService moveService, IAnimatorService animatorService)
+        public CharacterPresenter(IMoveableService moveService, IAnimatorService animatorService)
         {
             _moveableService = moveService;
             _animatorService = animatorService;

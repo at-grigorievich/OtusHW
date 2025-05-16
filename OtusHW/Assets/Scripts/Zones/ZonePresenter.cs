@@ -1,5 +1,6 @@
 using System;
 using ATG.Observable;
+using UnityEngine;
 using VContainer.Unity;
 
 namespace ATG.Zone
@@ -9,6 +10,8 @@ namespace ATG.Zone
         private readonly ZoneStorage _storage;
         private readonly ZoneView _view;
 
+        private readonly Action _onDisposed;
+        
         private CompositeObserveDisposable _dis;
         
         public bool IsFull => _storage.IsFull;
@@ -28,20 +31,13 @@ namespace ATG.Zone
             
             _storage.CurrentValue.Subscribe(OnCurrentAmountChanged).AddTo(_dis);
             _storage.CurrentLevel.Subscribe(OnStorageLevelChanged).AddTo(_dis);
-        }
 
-        private void OnCurrentAmountChanged(int obj)
-        {
-            OnAmountChanged?.Invoke();
-            _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
+            if (_view is TriggerZoneView triggerZone)
+            {
+                triggerZone.OnTriggerEntered += OnTriggerZoneEntered;
+                _onDisposed += () => triggerZone.OnTriggerEntered -= OnTriggerZoneEntered;
+            }
         }
-
-        private void OnStorageLevelChanged(int lvl)
-        {
-            OnLevelChanged?.Invoke();
-            _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
-        }
-
         public void Start()
         {
             _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
@@ -49,6 +45,7 @@ namespace ATG.Zone
         
         public void Dispose()
         {
+            _onDisposed?.Invoke();
             _storage?.Dispose();
             _dis?.Dispose();
         }
@@ -66,6 +63,23 @@ namespace ATG.Zone
         public void RemoveAmount(int amount)
         {
             _storage.RemoveAmount(amount);
+        }
+
+        private void OnCurrentAmountChanged(int obj)
+        {
+            OnAmountChanged?.Invoke();
+            _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
+        }
+
+        private void OnStorageLevelChanged(int lvl)
+        {
+            OnLevelChanged?.Invoke();
+            _view.UpdateAmounts(_storage.CurrentValue.Value, _storage.CurrentVolume);
+        }
+        
+        private void OnTriggerZoneEntered(Collider obj)
+        {
+            Debug.Log(obj.transform.name);
         }
     }
 }

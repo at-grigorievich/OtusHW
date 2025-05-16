@@ -9,7 +9,7 @@ namespace ATG.Zone
         [SerializeField] private TMP_Text counterOutput;
         [SerializeField] private Renderer[] resourceViews;
         
-        private void Awake()
+        protected void Awake()
         {
             UpdateAmounts(0, resourceViews.Length);   
         }

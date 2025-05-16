@@ -1,4 +1,5 @@
 ﻿using System;
+using DefaultNamespace;
 using UnityEngine;
 
 namespace ATG.Resource
@@ -6,11 +7,14 @@ namespace ATG.Resource
     [RequireComponent(typeof(Collider))]
     public class ResourceView: MonoBehaviour
     {
+        [SerializeField] private ResourceType resourceType;
         [SerializeField] private Renderer _mainRenderer;
         
         private Collider _collider;
         
-        public event Action<Collider> OnTriggerEntered; 
+        public event Action<Collider> OnTriggerEntered;
+
+        public ResourceType ResType => resourceType;
         
         private void Awake()
         {

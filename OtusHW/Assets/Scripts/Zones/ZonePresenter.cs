@@ -1,4 +1,5 @@
 using System;
+using ATG.Inventory;
 using ATG.Observable;
 using UnityEngine;
 using VContainer.Unity;
@@ -79,7 +80,21 @@ namespace ATG.Zone
         
         private void OnTriggerZoneEntered(Collider obj)
         {
-            Debug.Log(obj.transform.name);
+             if(obj.TryGetComponent(out IInventoryOwner inventoryOwner) == false) return;
+             int resInBagCount = inventoryOwner.GetResourceAmount(_storage.ResourceType);
+             
+             Debug.Log(resInBagCount);
+             
+             if(resInBagCount == 0) return;
+             if(_storage.IsFull) return;
+
+             int delta = 0;
+
+             if (AvailableVolume > resInBagCount) delta = resInBagCount;
+             else if (AvailableVolume < resInBagCount) delta = AvailableVolume;
+             
+             _storage.AddAmount(delta);
+             inventoryOwner.RemoveElementsByType(_storage.ResourceType, delta);
         }
     }
 }

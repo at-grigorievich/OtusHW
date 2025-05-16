@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using ATG.Inventory;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -59,7 +60,9 @@ namespace ATG.Resource
         
         private void OnTriggerEntered(Collider obj)
         {
-            Debug.Log(obj.name);
+            if(obj.TryGetComponent(out IInventoryOwner inventory) == false) return;
+            inventory.AddElementsByType(_view.ResType, 1);
+            
             OnDropRequired?.Invoke(this);
         }
     }

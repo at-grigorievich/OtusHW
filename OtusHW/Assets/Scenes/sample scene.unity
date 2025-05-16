@@ -1362,6 +1362,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df63bb4a141746978bc92264ae1c878c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceType: 1
   _mainRenderer: {fileID: 1596394994}
 --- !u!65 &210647808
 BoxCollider:
@@ -2407,7 +2408,8 @@ MonoBehaviour:
     unloadZoneFactory:
       config: {fileID: 11400000, guid: fd239cc8d48bd564384c3161f73d51a7, type: 2}
       view: {fileID: 1309922677}
-  playerCreator:
+  botCreator:
+    view: {fileID: 889154195}
     crossfadeAnimatorFactory:
       animator: {fileID: 879630680}
       pairs:
@@ -2417,7 +2419,7 @@ MonoBehaviour:
         animatorStateName: walk
     navMeshMoveServiceFactory:
       navMeshAgent: {fileID: 889154189}
-      baseSpeed: 1.6
+      baseSpeed: 2
   resourcePoolCreator:
     resourceViews:
     - {fileID: 1595154395}
@@ -4059,7 +4061,7 @@ Transform:
   m_GameObject: {fileID: 889154188}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0190303, y: 0.049999952, z: 1.9429767}
+  m_LocalPosition: {x: 4.16, y: 0.049999952, z: 4.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4637,6 +4639,7 @@ GameObject:
   - component: {fileID: 889154193}
   - component: {fileID: 889154191}
   - component: {fileID: 889154189}
+  - component: {fileID: 889154195}
   m_Layer: 0
   m_Name: bot
   m_TagString: Untagged
@@ -4764,6 +4767,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &889154195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889154188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0bb9d551a94712bfc6d193d28da27b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &889154196
 GameObject:
   m_ObjectHideFlags: 0
@@ -5757,8 +5772,8 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.96782106, g: 1, b: 0.7783019, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -6634,6 +6649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df63bb4a141746978bc92264ae1c878c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceType: 1
   _mainRenderer: {fileID: 894617609}
 --- !u!65 &1215714693
 BoxCollider:
@@ -6908,6 +6924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df63bb4a141746978bc92264ae1c878c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceType: 1
   _mainRenderer: {fileID: 1191951025}
 --- !u!65 &1383929656
 BoxCollider:
@@ -7588,6 +7605,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df63bb4a141746978bc92264ae1c878c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceType: 1
   _mainRenderer: {fileID: 3403584077062931332}
 --- !u!1 &1596394992
 GameObject:
@@ -7897,6 +7915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df63bb4a141746978bc92264ae1c878c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resourceType: 1
   _mainRenderer: {fileID: 1387417827}
 --- !u!65 &1749823808
 BoxCollider:

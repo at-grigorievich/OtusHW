@@ -1,10 +1,12 @@
-﻿using Sirenix.OdinInspector;
+﻿using ATG.Characters;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using VContainer;
 
 public class ConveyorDebugger: MonoBehaviour
 { 
     [Inject] private Conveyor _conveyor;
+    [Inject] private BotCharacterPresenter _bot;
     
     [Button("Load Zone Level Up")]
     public void LoadZoneLevelUp() => _conveyor.LoadZoneLevelUp();

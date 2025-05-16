@@ -2429,7 +2429,7 @@ MonoBehaviour:
     - {fileID: 1383929655}
     - {fileID: 210647807}
     startBirthDurationInSeconds: 5
-    restartBirthDurationInSeconds: 25
+    restartBirthDurationInSeconds: 45
 --- !u!1 &603692919
 GameObject:
   m_ObjectHideFlags: 0

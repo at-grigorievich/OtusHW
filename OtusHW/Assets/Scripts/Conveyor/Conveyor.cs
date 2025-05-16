@@ -44,7 +44,7 @@ public sealed class Conveyor : IStartable, IDisposable, ILoadedZoneChecker
         _unloadZone.Start();
         
         //_produceTimer.Reset();   
-        _conveyorProcessor.Initialize();
+        _conveyorProcessor.Start();
     }
     public void Dispose()
     {

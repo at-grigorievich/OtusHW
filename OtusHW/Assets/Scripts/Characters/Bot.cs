@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace ATG.Characters
 {
+    /// <summary>
+    /// NO USING
+    /// </summary>
     public class Bot: MonoBehaviour
     {
         public Blackboard Blackboard;

@@ -14,4 +14,7 @@ public class ConveyorDebugger: MonoBehaviour
     
     [Button("Convert time level up")]
     public void ProcessorLevelUp() => _conveyor.ProcessorLevelUp();
+
+    [Button("Add amount to load zone")]
+    public void AddAmount(int amount) => _conveyor.TryAddAmount(amount);
 }

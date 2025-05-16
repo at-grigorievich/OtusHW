@@ -19,6 +19,8 @@ namespace ATG.Zone
         public bool IsFull => _volume.CurrentValue.Value == _volume.CurrentVolume;
         public bool IsEmpty => _volume.CurrentValue.Value == 0;
 
+        public int AvailableVolume => _volume.CurrentVolume - _volume.CurrentValue.Value;
+        
         public ZoneStorage(ResourceType resourceType,int defaultValue, Stat<int> volumeStat)
         {
             ResourceType = resourceType;

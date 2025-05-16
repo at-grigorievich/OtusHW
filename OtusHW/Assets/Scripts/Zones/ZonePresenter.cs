@@ -13,7 +13,9 @@ namespace ATG.Zone
         
         public bool IsFull => _storage.IsFull;
         public bool IsEmpty => _storage.IsEmpty;
-
+        
+        public int AvailableVolume => _storage.AvailableVolume;
+        
         public event Action OnAmountChanged;
         public event Action OnLevelChanged;
         

@@ -11,9 +11,9 @@ public sealed class Conveyor : IStartable, IDisposable
     private readonly ZonePresenter _loadZone;
     private readonly ZonePresenter _unloadZone;
 
-    private readonly ZoneProduceTimer _produceTimer;
+    //private readonly ZoneProduceTimer _produceTimer;
     private readonly ConveyorProcessor _conveyorProcessor;
-
+    
     public Conveyor(ConveyorView view, ZonePresenter loadZone, ZonePresenter unloadZone, int produceInSeconds,
         Stat<int> convertDelayStat)
     {
@@ -21,10 +21,10 @@ public sealed class Conveyor : IStartable, IDisposable
         _loadZone = loadZone;
         _unloadZone = unloadZone;
 
-        _produceTimer = new ZoneProduceTimer(produceInSeconds);
+        //_produceTimer = new ZoneProduceTimer(produceInSeconds);
         _conveyorProcessor = new ConveyorProcessor(loadZone, unloadZone, convertDelayStat);
         
-        _produceTimer.OnCompleted += OnProducedTime;
+        //_produceTimer.OnCompleted += OnProducedTime;
         
         _conveyorProcessor.OnConvertProgressChanged += OnConvertProgressChanged;
         _conveyorProcessor.OnConvertStarted += OnStartConverting;
@@ -36,7 +36,7 @@ public sealed class Conveyor : IStartable, IDisposable
         _loadZone.Start();
         _unloadZone.Start();
         
-        _produceTimer.Reset();   
+        //_produceTimer.Reset();   
         _conveyorProcessor.Start();
     }
     public void Dispose()
@@ -44,10 +44,10 @@ public sealed class Conveyor : IStartable, IDisposable
         _loadZone.Dispose();
         _unloadZone.Dispose();
         
-        _produceTimer.Dispose();
+        //_produceTimer.Dispose();
         _conveyorProcessor.Dispose();
         
-        _produceTimer.OnCompleted -= OnProducedTime;
+        //_produceTimer.OnCompleted -= OnProducedTime;
         
         _conveyorProcessor.OnConvertStarted -= OnStartConverting;
         _conveyorProcessor.OnConvertFinished -= OnStopConverting;
@@ -57,6 +57,16 @@ public sealed class Conveyor : IStartable, IDisposable
     public void LoadZoneLevelUp() => _loadZone.LevelUp();
     public void UnloadZoneLevelUp() => _unloadZone.LevelUp();
     public void ProcessorLevelUp() => _conveyorProcessor.LevelUp();
+
+    public bool TryAddAmount(int amount)
+    {
+        if (_loadZone.IsFull == false)
+        {
+            _loadZone.AddAmount(amount);
+            return true;
+        }
+        return false;
+    }
     
     private void OnStartConverting()
     {
@@ -79,6 +89,6 @@ public sealed class Conveyor : IStartable, IDisposable
             _loadZone.AddAmount(1);
         }
 
-        _produceTimer.Reset();
+        //_produceTimer.Reset();
     }
 }

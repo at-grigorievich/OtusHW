@@ -5662,7 +5662,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1218284216984017936, guid: 4d3b77ff19d204d1cb351de63cb12c50, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493623668530282968, guid: 4d3b77ff19d204d1cb351de63cb12c50, type: 3}
+      propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4493623668530282968, guid: 4d3b77ff19d204d1cb351de63cb12c50, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

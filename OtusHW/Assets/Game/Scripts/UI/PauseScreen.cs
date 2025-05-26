@@ -31,18 +31,18 @@ namespace SampleGame
         {
             this.resumeButton.onClick.RemoveListener(this.Hide);
             this.exitButton.onClick.RemoveListener(this.menuLoader.LoadMenu);
+
+            Time.timeScale = 1f;
         }
 
-        public void Show()
-        {
-            Time.timeScale = 0; //KISS
-            this.gameObject.SetActive(true);
-        }
+        public void Show() => SetPause(true);
 
-        public void Hide()
+        public void Hide() => SetPause(false);
+
+        private void SetPause(bool isPaused)
         {
-            Time.timeScale = 1; //KISS
-            this.gameObject.SetActive(false);
+            Time.timeScale = isPaused ? 0 : 1;
+            this.gameObject.SetActive(isPaused);
         }
     }
 }

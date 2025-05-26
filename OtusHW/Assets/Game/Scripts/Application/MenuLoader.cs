@@ -1,13 +1,32 @@
-using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
+using Providers;
+using UnityEngine;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
+using VContainer;
 
 namespace SampleGame
 {
     public sealed class MenuLoader
     {
-        //TODO: Сделать через Addressables
+        private readonly GameLoader _gameLoader;
+        
+        [Inject]
+        public MenuLoader(GameLoader gameLoader)
+        {
+            _gameLoader = gameLoader;
+        }
+        
         public void LoadMenu()
         {
-            SceneManager.LoadScene("Menu");
+            LoadMenuAsync();
+        }
+
+        private async Task LoadMenuAsync()
+        {
+            AsyncOperationHandle<SceneInstance> handle = SceneLoaderProvider.GetLoadAsyncOperation("Menu");
+            SceneInstance instance = await handle.Task;
+            instance.ActivateAsync();
         }
     }
 }

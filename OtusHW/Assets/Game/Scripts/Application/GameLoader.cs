@@ -26,7 +26,7 @@ namespace SampleGame
             sceneContext.Run();
 
         }
-
+        
         private async Task UnloadGameAsync()
         {
             await SceneLoaderProvider.UnloadAsync(_loadedSceneOperation);

@@ -17,55 +17,113 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 42fd517e2500ebf45b328a7357045fa9
   m_SerializeEntries:
-  - m_GUID: 513f7e548b1864e9191b993e98d583e7
-    m_Address: Tile
+  - m_GUID: 2e498d1c8094910479dc3e1b768306a4
+    m_Address: LiberationSans SDF - Fallback
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - TMPro
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f586378b4e144a9851e7b34d9b748ee
+    m_Address: LiberationSans SDF
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TMPro
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e3265ab4bf004d28a9537516768c1c75
+    m_Address: LiberationSans
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Fonts
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe393ace9b354375a9cb14cdbbc28be4
+    m_Address: TMP_SDF-Mobile
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TMPro
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 055c92b262ca74d6099d1687bf091807
+    m_Address: Textures/Sand1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Texture
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 54e2cafad5f1b44dd86b14b11af2d054
+    m_Address: Textures/Ground1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Texture
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 08e91cec80a484d3a9dfd5279f0a27b7
+    m_Address: Textures/Sand2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Texture
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: afe0e94a9e25d4455b0f87a6347cd9e3
+    m_Address: Textures/Ground2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Texture
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2128980c08696495dad43435484c511f
+    m_Address: Models/Cave.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Model
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 67cbe541ad91740769fd7f4c2c6429fb
-    m_Address: Ground1
+    m_Address: Materials/Ground1.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 09aff6d7860984d4cad799797bc24247
-    m_Address: Cave
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Material
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5ea80d7d636e046dca895e2c51c49737
-    m_Address: Sand1
+    m_Address: Materials/Sand1.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Material
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dff72385f24ec420790973d1bd695d05
-    m_Address: Sand2
+    m_Address: Materials/Sand2.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Material
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 272f587d02b2d437796e1a318bb3b6ed
-    m_Address: Ground2
+    m_Address: Materials/Ground2.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Material
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3633b57e7af6142258f8f6716322d6fe
+    m_Address: Models/Tile.v2.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Model
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 53275a137324d4611add21b88cfe25c4
+    m_Address: Models/Stone.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Model
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86ae8a08552d54654bbe2ccf0f572409
+    m_Address: Models/Paling.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Model
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9ea26ded6afbc4572a655809c6ab88a6
-    m_Address: Pallete
+    m_Address: Materials/Pallete.mat
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Material
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7bbb9a114c03f44bb94166fe74fa5259
-    m_Address: Bridge
+  - m_GUID: c6b353724b6784a84b82c22d77cb2b05
+    m_Address: Models/Bridge.fbx
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 902fe78380aa64ab689da18b17da0ea8
-    m_Address: Stone
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8f56885ca0c9745e892d20ac284bc8c9
-    m_Address: Paling
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Model
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6cbfa5e918bd3cc40983d3bc77fb0afa, type: 2}

@@ -22,8 +22,8 @@ namespace Providers
                 throw new InvalidOperationException("The scene is not loaded yet.");
             }
             
-            //var unloadHandle = Addressables.UnloadSceneAsync(releasedScene);
-            //await unloadHandle.Task;
+            var unloadHandle = Addressables.UnloadSceneAsync(releasedScene);
+            await unloadHandle.Task;
             
             Addressables.Release(releasedScene);
         }

@@ -16,7 +16,57 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 42fd517e2500ebf45b328a7357045fa9
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 513f7e548b1864e9191b993e98d583e7
+    m_Address: Tile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67cbe541ad91740769fd7f4c2c6429fb
+    m_Address: Ground1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 09aff6d7860984d4cad799797bc24247
+    m_Address: Cave
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5ea80d7d636e046dca895e2c51c49737
+    m_Address: Sand1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dff72385f24ec420790973d1bd695d05
+    m_Address: Sand2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 272f587d02b2d437796e1a318bb3b6ed
+    m_Address: Ground2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9ea26ded6afbc4572a655809c6ab88a6
+    m_Address: Pallete
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bbb9a114c03f44bb94166fe74fa5259
+    m_Address: Bridge
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 902fe78380aa64ab689da18b17da0ea8
+    m_Address: Stone
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f56885ca0c9745e892d20ac284bc8c9
+    m_Address: Paling
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 6cbfa5e918bd3cc40983d3bc77fb0afa, type: 2}
   m_SchemaSet:

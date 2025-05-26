@@ -5,6 +5,9 @@ namespace SampleGame
 {
     public sealed class GameInstaller : MonoInstaller
     {
+        [SerializeField] 
+        private UnlockLocationServiceCreator locationServiceCreator;
+        
         [SerializeField]
         private CameraConfig cameraConfig;
 
@@ -13,7 +16,7 @@ namespace SampleGame
         
         [SerializeField]
         private InputConfig inputConfig;
-
+        
         public override void InstallBindings()
         {
             this.Container
@@ -42,6 +45,8 @@ namespace SampleGame
                 .AsCached()
                 .WithArguments(this.cameraConfig.cameraOffset)
                 .NonLazy();
+            
+            locationServiceCreator.Create(this.Container);
         }
     }
 }

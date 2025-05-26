@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Providers;
-using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using VContainer;

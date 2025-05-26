@@ -19,13 +19,15 @@ namespace SampleGame
         {
             _collider = GetComponent<Collider>();
             _collider.isTrigger = true;
-            _collider.enabled = false;
         }
+        
+        public void SetActive(bool active) => _collider.enabled = active;
 
         private void OnTriggerEnter(Collider other)
         {
             if(_alreadyUnlocked == true) return;
             OnLocationUnlocked?.Invoke(locationReference);
+            _alreadyUnlocked = true;
         }
     }
 }

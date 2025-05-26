@@ -47,6 +47,7 @@ namespace SampleGame
             foreach (var trigger in _unlockTriggers)
             {
                 trigger.OnLocationUnlocked += OnLocationUnlocked;
+                trigger.SetActive(true);
             }
             
             OnLocationUnlocked(_startedLocationReference);
@@ -69,7 +70,6 @@ namespace SampleGame
 
         private void OnLocationUnlocked(AssetReferenceGameObject assetReference)
         {
-            Debug.Log("asfsafasafasf");
             var provider = new GameObjectLoaderProvider(assetReference);
             _loadedLocations.Add(provider);
             

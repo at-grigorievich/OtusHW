@@ -1,0 +1,17 @@
+{
+    "name": "GameEngine",
+    "rootNamespace": "",
+    "references": [
+        "GUID:6c4046e3ad7247d99d3b8b7430cb16f5",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

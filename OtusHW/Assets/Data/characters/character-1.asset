@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 743622f29f504f4c9b8e32dd3f4b99c2, type: 3}
+  m_Name: character-1
+  m_EditorClassIdentifier: 
+  characterName: BigBoss
+  characterIcon: {fileID: 21300000, guid: 7c0892898786946a98a1057c9873611a, type: 3}
+  characterDescription: Big Boss description
+  characterSpecsByLevel:
+  - {fileID: 11400000, guid: 24a54feb967ead84bb43652a7fa77ed1, type: 2}
+  - {fileID: 11400000, guid: 0a0a9807ce6fa3f4ca79491fd78a27cd, type: 2}
+  - {fileID: 11400000, guid: 2331939a245994040990b314fc67b5b0, type: 2}

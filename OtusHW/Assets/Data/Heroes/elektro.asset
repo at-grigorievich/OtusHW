@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d467464dff5b4d088911ea00938c1823, type: 3}
+  m_Name: elektro
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: "\u041C\u0435\u0434\u0438\u0430\u0442\u043E\u0440"
+  <Icon>k__BackingField: {fileID: 21300000, guid: f6d397e5cec894f3cbbb28a24524a3db, type: 3}
+  <Description>k__BackingField: "\u041A\u0430\u0436\u0434\u044B\u0439 \u0440\u0430\u0437,
+    \u043A\u043E\u0433\u0434\u0430 \u043F\u043E\u043B\u0443\u0447\u0430\u0435\u0442
+    \u0443\u0440\u043E\u043D, \u043D\u0430\u043D\u043E\u0441\u0438\u0442 \u0432\u0441\u0435\u043C
+    1 \u0435\u0434 \u0443\u0440\u043E\u043D\u0430."
+  <Damage>k__BackingField: 7
+  <Health>k__BackingField: 35
+  <StartTurnSounds>k__BackingField:
+  - {fileID: 8300000, guid: 9aec69027fb0d42d284ccb7c087858c0, type: 3}
+  - {fileID: 8300000, guid: 1314fcb530f1f444489b0b5a3caed0a1, type: 3}
+  - {fileID: 8300000, guid: 24cda1d363f66421b9a28d0ce15c2d2a, type: 3}
+  - {fileID: 8300000, guid: 6c42d7f78fc4c492c851c0f6d5ec764f, type: 3}
+  - {fileID: 8300000, guid: 8705eee9f468f4612995a31ade57aa3c, type: 3}
+  - {fileID: 8300000, guid: cf4131bc52c7c42d68eefca84e52e73a, type: 3}
+  <DeathSound>k__BackingField: {fileID: 8300000, guid: 31a832b5ffe004b669c0b887d8e2b984, type: 3}
+  <LowHealthSound>k__BackingField: {fileID: 8300000, guid: 5bb9ff9087b6d492eacdeda34a7610f4, type: 3}

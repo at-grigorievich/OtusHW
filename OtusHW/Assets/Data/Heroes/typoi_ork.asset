@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d467464dff5b4d088911ea00938c1823, type: 3}
+  m_Name: typoi_ork
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: "\u0422\u0443\u043F\u043E\u0439 \u041E\u0440\u043A"
+  <Icon>k__BackingField: {fileID: 21300000, guid: c1be5b39c416140b4a270be385402427, type: 3}
+  <Description>k__BackingField: "\u0421 50% \u0432\u0435\u0440\u043E\u044F\u0442\u043D\u043E\u0441\u0442\u044C\u044E
+    \u043D\u0430\u043D\u043E\u0441\u0438\u0442 \u0443\u0440\u043E\u043D \u043D\u0435
+    \u0442\u043E\u043C\u0443 \u043F\u0440\u043E\u0442\u0438\u0432\u043D\u0438\u043A\u0443"
+  <Damage>k__BackingField: 8
+  <Health>k__BackingField: 32
+  <StartTurnSounds>k__BackingField:
+  - {fileID: 8300000, guid: ecba59054dcda4ece97352987857289b, type: 3}
+  - {fileID: 8300000, guid: bd0d4bf408ccf47e7a54455c78347fa7, type: 3}
+  - {fileID: 8300000, guid: 035fcad0317044a269025095209ae8b5, type: 3}
+  - {fileID: 8300000, guid: 82972a344ac784add9948bec53586af9, type: 3}
+  - {fileID: 8300000, guid: 925f229f6aa9e4a9d932b1df21c7c1e0, type: 3}
+  <DeathSound>k__BackingField: {fileID: 8300000, guid: 7e2d09ca938c1487383581b917a8b48c, type: 3}
+  <LowHealthSound>k__BackingField: {fileID: 8300000, guid: ca4ea813b9fe44879a16c7ffbb75d634, type: 3}

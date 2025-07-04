@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d467464dff5b4d088911ea00938c1823, type: 3}
+  m_Name: ohotniza
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: "\u041E\u0445\u043E\u0442\u043D\u0438\u0446\u0430"
+  <Icon>k__BackingField: {fileID: 21300000, guid: 676aec1b4f9ee4b599aeffc9a6703a1d, type: 3}
+  <Description>k__BackingField: "\u041F\u0440\u0438 \u0430\u0442\u0430\u043A\u0435
+    \u043D\u0435 \u043F\u043E\u043B\u0443\u0447\u0430\u0435\u0442 \u043E\u0442\u0432\u0435\u0442\u043D\u043E\u0433\u043E
+    \u0443\u0440\u043E\u043D\u0430"
+  <Damage>k__BackingField: 10
+  <Health>k__BackingField: 25
+  <StartTurnSounds>k__BackingField:
+  - {fileID: 8300000, guid: b65f0a22d77274a0c991c9ce95d35b64, type: 3}
+  - {fileID: 8300000, guid: 948c84e2313e5445a9443f16d7ac6ed8, type: 3}
+  - {fileID: 8300000, guid: 520822e61b1144d7588d5eb6a675e23b, type: 3}
+  - {fileID: 8300000, guid: b21a2acc523ba49979498d782ce51021, type: 3}
+  <DeathSound>k__BackingField: {fileID: 8300000, guid: 1ce6128bf170245efb97b330945a50b8, type: 3}
+  <LowHealthSound>k__BackingField: {fileID: 8300000, guid: 2c545d682ce264fc4a52dbc10b8c6de6, type: 3}
